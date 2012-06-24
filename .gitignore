@@ -1,9 +1,13 @@
 *.py[co]
+.Python
 
 # Packages
 *.egg
 *.egg-info
 dist
+lib
+man
+include
 build
 eggs
 parts
