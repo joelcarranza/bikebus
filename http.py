@@ -16,26 +16,43 @@ from geocoder import geocode
 import re
 import otp
 from textdirections import handle_text
+import xml.etree.ElementTree as ET
+import StringIO
 
 render = web.template.render(root_dir+'/templates', base='layout')
 
 urls = (
-    '/', 'sms_test',
-    '/sms','sms'
+  '/', 'sms_test',
+  '/sms','sms'
 )
 
 class sms:
-    def POST(self):
-       result,message,cookies = handle_text(web.input().q)
-       return render.answer('\n'.join(message))
+  def POST(self):
+    # https://www.twilio.com/docs/api/twiml/sms/twilio_request
+    body = web.input().Body 
+    result,message,cookies = handle_text(body,web.cookies().get('bikebus'))
+    if cookies:
+      web.setcookie('bikebus',cookies)
+    # https://www.twilio.com/docs/api/twiml/sms/your_response
+    root = ET.Element("Response")
+    for msg in message:
+      el = ET.SubElement(root,'Sms')
+      el.text = msg
+    tree = ET.ElementTree(root)
+    web.header('Content-Type', 'text/xml')
+    output = StringIO.StringIO()
+    tree.write(output,encoding="UTF-8",xml_declaration=True)
+    return output.getvalue()
 
 class sms_test:
-    def POST(self):
-       q = web.input().q
-       result,message,cookies = handle_text(q)
-       return render.question(q,message)
-    def GET(self):
-        return render.question('',[])
+  def POST(self):
+    q = web.input().q
+    result,message,cookies = handle_text(q,web.cookies().get('bikebus'))
+    if cookies:
+      web.setcookie('bikebus',cookies)
+    return render.question(q,message)
+  def GET(self):
+    return render.question('',[])
 
 if __name__ == '__main__':
   web.application(urls,globals()).run()

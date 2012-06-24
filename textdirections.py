@@ -6,6 +6,7 @@ from geocoder import geocode
 import re
 import otp
 import dateutil.parser
+import textwrap
 
 # see these http://www.digsafe.com/documents/1-04update/abbrv.pdf
 abbr = [
@@ -52,7 +53,7 @@ def abbreviate(name):
   return name
 
 def step_instructions(step):
-  direction = step.findtext('relativeDirection')
+  direction = re.sub('_',' ',step.findtext('relativeDirection').lower())
   name = abbreviate(step.findtext('streetName'))
   if direction:
     return "%s on %s" % (direction,name)
@@ -86,7 +87,7 @@ def plan_instructions(doc):
         if len(legs) == 1:
           steps = leg.findall('steps/walkSteps')
           if len(steps) > 2:
-            suffix += ' via '+',\n\t'.join([step_instructions(step) for step in steps[1:-1]])
+            suffix += ' via '+'\n'.join([step_instructions(step) for step in steps[1:-1]])
       # append the bus arrival time
       elif mode == 'BUS' or mode == 'TRAM':
         datestr = leg.findtext('startTime')
@@ -113,6 +114,26 @@ def message(text):
 def help():
   return message(HELP_TEXT)
 
+def sms_chunk(lines):
+  text = "\n".join(lines)
+  if len(text) < 160:
+    return [text]
+  else:
+    # this is a little hokey - loses some of the newlines
+    lines = textwrap.wrap(text,160)
+    parts = []
+    part_length = 0
+    for line in lines:
+      line_length = len(line)
+      if len(parts) > 0 and line_length + part_length < 160:
+        parts[-1] = parts[-1]+"\n"+line
+        part_length = line_length + part_length
+      else:
+        parts.append(line)
+        part_length = line_length
+    return parts
+
+
 def directions(dirfrom,dirto):
   fromPlace = geocode(dirfrom)
   if not fromPlace:
@@ -122,9 +143,9 @@ def directions(dirfrom,dirto):
     return message("Unable to locate %s" % dirto)
   plan = otp.plan(fromPlace,toPlace,'BIKE')
   inst = plan_instructions(plan)
-  return message(" ".join(inst))
+  return ('OK',sms_chunk(inst),'')
 
-def handle_text(smsbody):
+def handle_text(smsbody,cookies):
   text = re.sub(r'\s+',' ',smsbody).strip()
   for i in xrange(0,len(actions),2):
     pattern = re.compile(actions[i],re.I)
