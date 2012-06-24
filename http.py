@@ -20,7 +20,7 @@ from textdirections import handle_text
 render = web.template.render(root_dir+'/templates', base='layout')
 
 urls = (
-    '/', 'index',
+    '/', 'sms_test',
     '/sms','sms'
 )
 
@@ -29,13 +29,17 @@ class sms:
        result,message,cookies = handle_text(web.input().q)
        return render.answer('\n'.join(message))
 
-class index:
+class sms_test:
     def POST(self):
-       result,message,cookies = handle_text(web.input().q)
-       return render.answer('\n'.join(message))
+       q = web.input().q
+       result,message,cookies = handle_text(q)
+       return render.question(q,message)
     def GET(self):
-        return render.question()
+        return render.question('',[])
 
-application = web.application(urls, globals()).wsgifunc()
+if __name__ == '__main__':
+  web.application(urls,globals()).run()
+else:
+  application = web.application(urls, globals()).wsgifunc()
 
 

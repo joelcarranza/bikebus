@@ -1,7 +1,18 @@
-$def with ()
-$var title: Question
+$def with (question,response)
+$var title: SMS Test
 
-  <form method="POST">
-    <textarea name="q">
-    </textarea>
-    <input type="submit">
+<div class="row">
+  <div class="span6">
+    <h1>SMS Test</h2>
+    <form class="well" method="POST">
+      <label>Command</label>
+      <textarea  class="span5" name="q" placeholder="Type something…">$question</textarea>
+      <span class="help-block">Entry a text message like thing here</span>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+
+
+    $for text in response:
+      <pre>$text</pre>
+  </div>
+</div>
