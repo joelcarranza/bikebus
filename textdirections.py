@@ -7,18 +7,38 @@ import re
 import otp
 import dateutil.parser
 import textwrap
+import parsedatetime.parsedatetime as pdt
+import parsedatetime.parsedatetime_consts as pdc
 
+# We scan output text for these patterns and replace them with the matching
+# abbreviations in order to try and shrink the size of the text message
+# TODO: this could be alot more exhaustive
 # see these http://www.digsafe.com/documents/1-04update/abbrv.pdf
-abbr = [
+ABBREVIATIONS = [
     (r'(?i)\s+street',' St'),
     (r'(?i)\s+avenue',' Ave'),
     (r'(?i)\s+drive',' Dr') 
 ]
 
 
-actions = (
-    r'^help$','help',
-    r'^(.+)\s+to\s+(.+)$','directions'
+AT_PATTERN = r'(\s+(?:at|in)\s+.+)?'
+MODE_PATTERN = r'bike|bus|walk|walking|streetcar'
+FROM_TO_PATTERN = r'(?:from)?(.+?)\s+to\s+(.+?)'
+
+ACTIONS = (
+    (r'^help$','help'),
+    # MODE directions from FROM to TO at AT
+    ('^('+MODE_PATTERN+r')(?:\s+directions\s+)'+
+    FROM_TO_PATTERN+
+    AT_PATTERN+
+    '$'
+    ,'directions1'),
+    # from FROM to TO via MODE at AT
+    (r'^'+FROM_TO_PATTERN+
+    '(\s+by|via\s+'+MODE_PATTERN+')?'+
+    AT_PATTERN+
+    '$'
+    ,'directions2')
 )
 
 HELP_TEXT = 'Try texting: <start> TO <finish> for directions'
@@ -48,7 +68,7 @@ def format_date(datestr):
   return date.strftime("%I:%M%p")
 
 def abbreviate(name):
-  for pattern,repl in abbr:
+  for pattern,repl in ABBREVIATIONS:
     name = re.sub(pattern,repl,name)
   return name
 
@@ -62,6 +82,7 @@ def step_instructions(step):
 
 def plan_instructions(doc):
   itinerary = doc.find('plan/itineraries/itinerary')
+  # TODO: what if the itinerary fails?
   if len(itinerary):
     legtext = []
     legn = 0
@@ -87,7 +108,7 @@ def plan_instructions(doc):
         if len(legs) == 1:
           steps = leg.findall('steps/walkSteps')
           if len(steps) > 2:
-            suffix += ' via '+'\n'.join([step_instructions(step) for step in steps[1:-1]])
+            suffix += ' via\n'+'\n'.join([step_instructions(step) for step in steps[1:-1]])
       # append the bus arrival time
       elif mode == 'BUS' or mode == 'TRAM':
         datestr = leg.findtext('startTime')
@@ -99,9 +120,9 @@ def plan_instructions(doc):
       else:
         legtext.append("%s to %s%s" % (verb,toname,suffix))
       legn = legn+1
-    return legtext
+    return "\n".join(legtext)
   else:
-    return ["No results found"]
+    return "No results found"
 
 # strip spaces and remove extras
 # do whatever other prepocessing is necessary
@@ -114,13 +135,21 @@ def message(text):
 def help():
   return message(HELP_TEXT)
 
-def sms_chunk(lines):
-  text = "\n".join(lines)
+def wrap(text,n=160):
+  lines = []
+  for inputline in text.split('\n'):
+    if len(inputline) < n:
+      lines.append(inputline)
+    else:
+      for chunk in textwrap.wrap(text,n):
+        lines.append(chunk)
+  return lines
+
+def sms_chunk(text):
   if len(text) < 160:
     return [text]
   else:
-    # this is a little hokey - loses some of the newlines
-    lines = textwrap.wrap(text,160)
+    lines = wrap(text,160)
     parts = []
     part_length = 0
     for line in lines:
@@ -133,27 +162,67 @@ def sms_chunk(lines):
         part_length = line_length
     return parts
 
+def directions1(mode,dirfrom,dirto,at):
+  return directions(dirfrom,dirto,mode,at)
 
-def directions(dirfrom,dirto):
+def directions2(dirfrom,dirto,mode,at):
+  return directions(dirfrom,dirto,mode,at)
+
+def parse_natural_date(text):
+  # create an instance of Constants class so we can override some of the defaults
+  dc = pdc.Constants()
+  # create an instance of the Calendar class and pass in our Constants # object instead of letting it create a default
+  dp = pdt.Calendar(dc)    
+  # http://stackoverflow.com/questions/1810432/handling-the-different-results-from-parsedatetime
+  result,what = dp.parse(text)
+  # what was returned (see http://code-bear.com/code/parsedatetime/docs/)
+  # 0 = failed to parse
+  # 1 = date (with current time, as a struct_time)
+  # 2 = time (with current date, as a struct_time)
+  # 3 = datetime
+  if what in (1,2):
+      # result is struct_time
+      dt = datetime.datetime( *result[:6] )
+  elif what == 3:
+      # result is a datetime
+      dt = result
+
+  if dt is None:
+      # Failed to parse
+      raise ValueError, ("Don't understand date '"+s+"'")
+  return dt
+  
+def directions(dirfrom,dirto,mode,at):
+  if not mode:
+    mode = 'ANY'
   fromPlace = geocode(dirfrom)
   if not fromPlace:
     return message("Unable to locate %s" % dirfrom)
   toPlace = geocode(dirto)
   if not toPlace:
     return message("Unable to locate %s" % dirto)
-  plan = otp.plan(fromPlace,toPlace,'BIKE')
+  date = None
+  if at:
+    date = parse_natural_date(at)
+  plan = otp.plan(fromPlace,toPlace,mode.upper(),date)
   inst = plan_instructions(plan)
   return ('OK',sms_chunk(inst),'')
 
-def handle_text(smsbody,cookies):
-  text = re.sub(r'\s+',' ',smsbody).strip()
-  for i in xrange(0,len(actions),2):
-    pattern = re.compile(actions[i],re.I)
-    funcname = actions[i+1]
+def match_action(text):
+  for patterntext,funcname in ACTIONS:
+    pattern = re.compile(patterntext,re.I)
     match = pattern.match(text)
     if match:
-      func = globals().get(funcname)
-      return func(*match.groups())
+      return funcname,match.groups()
+  return None
 
-  return message(UNKNOWN_COMMAND_TEXT)
+def handle_text(smsbody,cookies=None):
+  text = re.sub(r'\s+',' ',smsbody).strip()
+  action = match_action(text)
+  if action:
+    funcname,match = action
+    func = globals().get(funcname)
+    return func(*match)
+  else:
+    return message(UNKNOWN_COMMAND_TEXT)
 
