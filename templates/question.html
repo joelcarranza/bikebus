@@ -1,18 +1,30 @@
 $def with (question,response)
-$var title: SMS Test
+$var title: BikeBus SMS Test
 
 <div class="row">
   <div class="span6">
-    <h1>SMS Test</h2>
-    <form class="well" method="POST">
-      <label>Command</label>
-      <textarea  class="span5" name="q" placeholder="Type something…">$question</textarea>
-      <span class="help-block">Entry a text message like thing here</span>
+    <h1>BikeBus SMS Test</h2>
+    <form method="POST">
+      <textarea  class="span5" name="q" rows="5" placeholder="Type something…">$question</textarea>
+      <span class="help-block">
+        <b>Examples</b><br>
+          Audubon Park to Superdome<br>
+          directions from Audobon Park to Superdome by bike<br>
+          bus directions  from Audubon  Park to Superdome<br>
+          Audubon Park to Superdome by bus at 3:40<br>
+      </span>
       <button type="submit" class="btn">Submit</button>
     </form>
 
 
-    $for text in response:
-      <pre>$text</pre>
+    $if response:
+      <h2>Response</h2>
+      $for text in response:
+        <div class="sms">
+        <span class="badge" style="float:right">
+          $len(text)
+        </span>
+        <pre>$text</pre>
+        </div>
   </div>
 </div>

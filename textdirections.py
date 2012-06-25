@@ -23,19 +23,19 @@ ABBREVIATIONS = [
 
 AT_PATTERN = r'(\s+(?:at|in)\s+.+)?'
 MODE_PATTERN = r'bike|bus|walk|walking|streetcar'
-FROM_TO_PATTERN = r'(?:from)?(.+?)\s+to\s+(.+?)'
+FROM_TO_PATTERN = r'(?:from\s+)?(.+?)\s+to\s+(.+?)'
 
 ACTIONS = (
     (r'^help$','help'),
     # MODE directions from FROM to TO at AT
-    ('^('+MODE_PATTERN+r')(?:\s+directions\s+)'+
+    ('^('+MODE_PATTERN+r')(?:\s+directions\s+)?'+
     FROM_TO_PATTERN+
     AT_PATTERN+
     '$'
     ,'directions1'),
     # from FROM to TO via MODE at AT
-    (r'^'+FROM_TO_PATTERN+
-    '(\s+by|via\s+'+MODE_PATTERN+')?'+
+    (r'^(?:directions\s+)?'+FROM_TO_PATTERN+
+    '(?:\s+(?:by|via)\s+('+MODE_PATTERN+'))?'+
     AT_PATTERN+
     '$'
     ,'directions2')

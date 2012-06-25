@@ -22,7 +22,7 @@ A user can ask for directions via text message by texting XXX-XXXX (TODO). An ex
 	Audubon Park to Superdome
 	directions from Audobon Park to Superdome by bike 
 	bus directions  from Audubon  Park to Superdome
-	Audubon Park to Superdome by bike bus @ 3:40
+	Audubon Park to Superdome by bike bus at 3:40
 
 Texting HELP to the service provides some brief instructions
 
