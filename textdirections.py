@@ -17,7 +17,10 @@ import parsedatetime.parsedatetime_consts as pdc
 ABBREVIATIONS = [
     (r'(?i)\s+street',' St'),
     (r'(?i)\s+avenue',' Ave'),
-    (r'(?i)\s+drive',' Dr') 
+    (r'(?i)\s+drive',' Dr'),
+    (r'(?i)\s+road',' Rd'),
+    # nuke stuff in paranthesis - has a tendency to be junk
+    (r'\([^)]*\)','')
 ]
 
 
@@ -51,7 +54,7 @@ def verb_for_mode(mode):
   elif mode == 'BUS':
     return 'Take bus'
   elif mode == 'WALK':
-    return 'walk'
+    return 'Walk'
   elif mode == 'TRAM':
     return 'Take streetcar'
   else:
@@ -65,7 +68,8 @@ def format_distance(distance):
 def format_date(datestr):
   # datestr is ISO-8601
   date = dateutil.parser.parse(datestr)
-  return date.strftime("%I:%M%p")
+  # use minue to remove trailing zeroes!
+  return date.strftime("%-I:%M%p")
 
 def abbreviate(name):
   for pattern,repl in ABBREVIATIONS:
@@ -103,7 +107,8 @@ def plan_instructions(doc):
       # include bike/walk distance
       if mode == 'BICYCLE' or mode == 'WALK':
         dist = float(leg.findtext('distance'))
-        suffix = " (%smi)" % format_distance(dist)
+        if dist > 175: # ~approx 0.1 miles, anything closer don't bother with distance
+          suffix = " (%smi)" % format_distance(dist)
         # if this the only leg then include the details
         if len(legs) == 1:
           steps = leg.findall('steps/walkSteps')
@@ -154,9 +159,9 @@ def sms_chunk(text):
     part_length = 0
     for line in lines:
       line_length = len(line)
-      if len(parts) > 0 and line_length + part_length < 160:
+      if len(parts) > 0 and (line_length + part_length + 1) < 160:
         parts[-1] = parts[-1]+"\n"+line
-        part_length = line_length + part_length
+        part_length = line_length + part_length + 1
       else:
         parts.append(line)
         part_length = line_length
