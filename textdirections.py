@@ -192,19 +192,25 @@ def parse_natural_date(text):
       raise ValueError, ("Don't understand date '"+s+"'")
   return dt
   
+def error_for_geocode(result,query):
+  if result == 'APPROXIMATE':
+    return message("%s is not specific enough. Please refine" % query)
+  else:
+    return message("Unable to locate %s" % query)
+
 def directions(dirfrom,dirto,mode,at):
   if not mode:
     mode = 'ANY'
-  fromPlace = geocode(dirfrom)
-  if not fromPlace:
-    return message("Unable to locate %s" % dirfrom)
-  toPlace = geocode(dirto)
-  if not toPlace:
-    return message("Unable to locate %s" % dirto)
+  from_result,from_place = geocode(dirfrom)
+  if from_result != 'OK':
+    return error_for_geocode(from_result,dirfrom)
+  to_result,to_place = geocode(dirto)
+  if to_result != 'OK':
+    return error_for_geocode(to_result,dirto)
   date = None
   if at:
     date = parse_natural_date(at)
-  plan = otp.plan(fromPlace,toPlace,mode.upper(),date)
+  plan = otp.plan(from_place,to_place,mode.upper(),date)
   inst = plan_instructions(plan)
   return ('OK',sms_chunk(inst),'')
 
