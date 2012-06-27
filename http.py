@@ -22,7 +22,7 @@ import StringIO
 import json
 
 render = render_jinja(
-        'templates',   # Set template directory.
+        os.path.join(root_dir,'templates'),   # Set template directory.
         encoding = 'utf-8',                         # Encoding.
         globals=dict(otp=otp)
     )
