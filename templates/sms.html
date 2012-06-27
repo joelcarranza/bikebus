@@ -1,11 +1,11 @@
-$def with (question,response)
-$var title: BikeBus SMS Test
+{% extends "layout.html" %}
+{% block content %}
 
 <div class="row">
   <div class="span6">
-    <h1>BikeBus SMS Test</h2>
+    <h1>BikeBus SMS Debug Console</h2>
     <form method="POST">
-      <textarea  class="span5" name="q" rows="5" placeholder="Type something…">$question</textarea>
+      <textarea  class="span5" name="q" rows="5" placeholder="Type something…">{{question}}</textarea>
       <span class="help-block">
         <b>Examples</b><br>
           Audubon Park to Superdome<br>
@@ -17,14 +17,18 @@ $var title: BikeBus SMS Test
     </form>
 
 
-    $if response:
+    {% if message %}
       <h2>Response</h2>
-      $for text in response:
+      {% for text in message %}
         <div class="sms">
         <span class="badge" style="float:right">
-          $len(text)
+          {{ text|length }}
         </span>
-        <pre>$text</pre>
+        <pre>{{text}}</pre>
         </div>
+      {% endfor %}
+    {% endif %}
   </div>
 </div>
+
+{% endblock %}

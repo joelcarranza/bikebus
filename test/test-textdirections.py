@@ -12,20 +12,39 @@ class TextDirectionsTest(unittest.TestCase):
     Ipsum passages, and more recently with desktop publishing software like Aldus 
     PageMaker including versions of Lorem Ipsum.'''
     results = textdirections.wrap(ipsum,25)
-    
+    for line in results:
+      self.assertTrue(len(line) <= 25)
 
   def test_match_action(self):
     func,match = textdirections.match_action('help')
-    self.assertEquals(func,'help')
+    self.assertEqual(func,'help')
+    self.assertEqual(len(match),0)
     func,match = textdirections.match_action('bus directions from 2317 Jena St TO Canal Street')
-    self.assertEquals(func,'directions1')
+    self.assertEqual(func,'directions1')
+    self.assertEqual(match,('bus','2317 Jena St','Canal Street',None))
     func,match = textdirections.match_action('from 2317 Jena St TO Canal Street via bus')
-    self.assertEquals(func,'directions2')
-    func,match = textdirections.match_action('2317 Jena St TO Canal Stel')
-    self.assertEquals(func,'directions2')
+    self.assertEqual(func,'directions2')
+    self.assertEqual(match,('2317 Jena St','Canal Street','bus',None))
+    func,match = textdirections.match_action('2317 Jena St TO Canal Street')
+    self.assertEqual(func,'directions2')
+    self.assertEqual(match,('2317 Jena St','Canal Street',None,None))
+
+  # ensure all actions point to actual methods
+  def test_actions(self):
+    for pattern,action in textdirections.ACTIONS:
+      self.assertIsNotNone(getattr(textdirections,action))
+
+  def test_help_action(self):
+    (code,messages,cookies) = textdirections.handle_text('help')
+    self.assertEqual(code,'MSG')
+    for m in messages:
+      self.assertTrue(len(m)<=160)
+    self.assertEqual(len(messages),1)
 
   def test_directions(self):
-    print textdirections.handle_text('HELPPPP')
-    print textdirections.handle_text('help')
-    print textdirections.handle_text('bike directions from 2317 Jena St TO Canal St')
+    (code,messages,cookies) = textdirections.handle_text('bike directions from 2317 Jena St TO Canal St')
+    self.assertEqual(code,'OK')
+    for m in messages:
+      self.assertTrue(len(m)<=160)
+    self.assertTrue(len(cookies)>0)
 

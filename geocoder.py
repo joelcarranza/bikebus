@@ -1,5 +1,6 @@
 import requests
 import json
+import re
 
 URL = 'http://maps.googleapis.com/maps/api/geocode/json'
 
@@ -11,7 +12,17 @@ BOUNDS = (
     (30.1772,-89.6260)
 )
 
+# Geocodes a search string and returns a tuple (code,(lat,lon))
+# where lat,lon tuple may be None if there is an error
+# possible codes are:
+# - OK
+# - ZERO_RESULTS
+# - OVER_QUERY_LIMIT
+# TODO: HTTP errors should be caught internally and returned as HTTP_ERROR
 def geocode(search):
+  llmatch = re.match(r'^(-?\d+\.\d+)\s*,\s*(-?\d+\.\d+)$',search)
+  if llmatch:
+    return ('OK',(float(llmatch.group(1)),float(llmatch.group(2))))
   # TODO: support straight up lat/lon search
   params = dict(sensor="true",
       address=search,
@@ -26,8 +37,9 @@ def geocode(search):
       location_type = result['geometry']['location_type']
       # require a decent location - exclude matches that just identify the
       # city center - i.e. New Orleans, LA
-      if location_type == 'APPROXIMATE':
-        return 'APPROXIMATE',None
+      # this doens't work for Superdome or Audobon Park
+      # if location_type == 'APPROXIMATE':
+      #  return 'APPROXIMATE',None
       # make sure we are IN new orleans
       (lat_min,lon_min),(lat_max,lon_max) = BOUNDS
       lat = result['geometry']['location']['lat']

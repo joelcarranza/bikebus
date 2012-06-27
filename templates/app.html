@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row">
+  <div class="span6">
+    <h1>BikeBus</h2>
+    <form class="form-horizontal" method="POST">
+      <fieldset>
+          <div class="control-group">
+            <label class="control-label" for="input01">From</label>
+            <div class="controls">
+              <input type="text" class="input-large" id="fromplace">
+            </div>
+          </div>
+        
+          <div class="control-group">
+            <label class="control-label" for="input01">To</label>
+            <div class="controls">
+              <input type="text" class="input-large" id="tpplace">
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Go</button>
+          </div>
+      </fieldset>
+    </form>
+
+
+    {% if result %}
+      {% for itinerary in result.plan.itineraries[0:1] %}
+      <div class="itinerary">
+        <ul>
+        {% for leg in itinerary.legs %}
+          <li>
+          {{ otp.verb_for_mode(leg.mode) }}
+          from
+          {{ leg.from.name}}
+          to
+          {{ leg.to.name}}
+          {% if leg.mode == 'BUS' %}
+          @ {{otp.format_date(leg.startTime)}}
+          {% endif %}
+
+          {% if leg.mode == 'WALK' or leg.mode == 'BIKE' %}
+            ({{otp.format_distance(leg.distance)}}mi)
+          {% endif %}
+
+          <ul>
+          {% for step in leg.steps %}
+          <li>
+          {% if step.relativeDirection %}
+          {{ step.relativeDirection|capitalize }}
+          on
+          {% else %}
+          Start at
+          {% endif %}
+          {{step.streetName}}
+          </li>
+          {% endfor %}
+          </ul>
+          <img src="http://maps.googleapis.com/maps/api/staticmap?size=320x240&path=weight:5%7Ccolor:red%7Cenc:{{leg.legGeometry.points}}&sensor=false">
+          </li>
+        {% endfor %}
+      </ul>
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    {% if error %}
+      {{ error }}
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

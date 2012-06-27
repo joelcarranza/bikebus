@@ -6,9 +6,11 @@ from geocoder import geocode
 import re
 import otp
 import dateutil.parser
+from datetime import datetime
 import textwrap
 import parsedatetime.parsedatetime as pdt
 import parsedatetime.parsedatetime_consts as pdc
+import json
 
 # We scan output text for these patterns and replace them with the matching
 # abbreviations in order to try and shrink the size of the text message
@@ -30,6 +32,7 @@ FROM_TO_PATTERN = r'(?:from\s+)?(.+?)\s+to\s+(.+?)'
 
 ACTIONS = (
     (r'^help$','help'),
+    (r'^stop\s+(\d+)$','stop_info'),
     # MODE directions from FROM to TO at AT
     ('^('+MODE_PATTERN+r')(?:\s+directions\s+)?'+
     FROM_TO_PATTERN+
@@ -48,94 +51,101 @@ HELP_TEXT = 'Try texting: <start> TO <finish> for directions'
 WELCOME_TEXT = 'This is an experimental bus/bike trip planner service'
 UNKNOWN_COMMAND_TEXT = "Sorry I didn't understand that. Text HELP for some tips on using this service"
 
-def verb_for_mode(mode):
-  if mode == 'BICYCLE':
-    return 'Bike'
-  elif mode == 'BUS':
-    return 'Take bus'
-  elif mode == 'WALK':
-    return 'Walk'
-  elif mode == 'TRAM':
-    return 'Take streetcar'
-  else:
-    return mode
-
-def format_distance(distance):
-  # distance in meters
-  miles = distance/ 1609.344
-  return "%.1f" % miles
-
-def format_date(datestr):
-  # datestr is ISO-8601
-  date = dateutil.parser.parse(datestr)
-  # use minue to remove trailing zeroes!
-  return date.strftime("%-I:%M%p")
-
 def abbreviate(name):
   for pattern,repl in ABBREVIATIONS:
     name = re.sub(pattern,repl,name)
   return name
 
 def step_instructions(step):
-  direction = re.sub('_',' ',step.findtext('relativeDirection').lower())
-  name = abbreviate(step.findtext('streetName'))
+  direction = step.get('relativeDirection')
+  if direction:
+    direction = re.sub('_',' ',direction.lower())
+  name = abbreviate(step['streetName'])
   if direction:
     return "%s on %s" % (direction,name)
   else:
     return name
 
+def leg_details(leg):
+  mode = leg['mode']
+  verb = otp.verb_for_mode(mode)
+  fromname = abbreviate(leg['from']['name'])
+  toname = abbreviate(leg['to']['name'])
+  dist = leg['distance']
+  suffix = " (%smi)" % otp.format_distance(dist)
+  detail_text = "%s from %s to %s%s\n" % (verb,fromname,toname,suffix)
+  steps = leg['steps']
+  return detail_text+'\n'.join([step_instructions(step) for step in steps])
+
 def plan_instructions(doc):
-  itinerary = doc.find('plan/itineraries/itinerary')
+  # choose a single itinerary
+  itinerary = doc['plan']['itineraries'][0]
   # TODO: what if the itinerary fails?
   if len(itinerary):
     legtext = []
     legn = 0
-    legs = itinerary.findall('legs/leg')
+    legs = itinerary['legs']
+    details = {}
     for leg in legs:
+      n = str(legn+1)
       # mode can be BUS,BICYCLE,TRAM,WALK
-      mode = leg.attrib['mode']
-      verb = verb_for_mode(mode)
+      mode = leg['mode']
+      verb = otp.verb_for_mode(mode)
       # include route number
       if mode == 'BUS':
-         verb += " #%s" % leg.attrib['route']
+         verb += " #%s" % leg['route']
       if mode == 'TRAM':
-         verb = 'Take %s streetcar' % leg.attrib['routeShortName']
+         verb = 'Take %s streetcar' % leg['routeShortName']
       # else if tram - use official route name
-      fromname = abbreviate(leg.find('from/name').text)
-      toname = abbreviate(leg.find('to/name').text)
+      fromname = abbreviate(leg['from']['name'])
+      toname = abbreviate(leg['to']['name'])
       suffix = ''
       # include bike/walk distance
       if mode == 'BICYCLE' or mode == 'WALK':
-        dist = float(leg.findtext('distance'))
+        dist = leg['distance']
         if dist > 175: # ~approx 0.1 miles, anything closer don't bother with distance
-          suffix = " (%smi)" % format_distance(dist)
+          suffix = " (%smi)" % otp.format_distance(dist)
         # if this the only leg then include the details
         if len(legs) == 1:
-          steps = leg.findall('steps/walkSteps')
+          steps = leg['steps']
           if len(steps) > 2:
             suffix += ' via\n'+'\n'.join([step_instructions(step) for step in steps[1:-1]])
+        else:
+          details[n] = sms_chunk(leg_details(leg))
       # append the bus arrival time
       elif mode == 'BUS' or mode == 'TRAM':
-        datestr = leg.findtext('startTime')
-        suffix = " @%s" % format_date(datestr)
+        ts = leg['startTime']
+        suffix = " @%s" % otp.format_date(ts)
+        # TODO
+        details[n] = "STOP %s" % leg['from']['stopCode']
         # unlikely this is the only leg but if it is then we should provide details
 
+      prefix = ''
+      if len(legs) > 1:
+        prefix = "%s. " % n
       if legn == 0:
-        legtext.append("%s from %s to %s%s" % (verb,fromname,toname,suffix))
+        legtext.append("%s%s from %s to %s%s" % (prefix,verb,fromname,toname,suffix))
       else:
-        legtext.append("%s to %s%s" % (verb,toname,suffix))
+        legtext.append("%s%s to %s%s" % (prefix,verb,toname,suffix))
       legn = legn+1
-    return "\n".join(legtext)
+
+    if len(legs) > 1:
+      legtext.append('Text # for more info')
+    return ('OK',sms_chunk("\n".join(legtext)),json.dumps(details))
   else:
-    return "No results found"
+    return message("No results found")
 
 # strip spaces and remove extras
-# do whatever other prepocessing is necessary
+# do whatever other prepocessing is necessar/
 def normalize(text):
   return re.sub(r'\s+',' ',text).strip()
 
 def message(text):
   return ("MSG",[text],'')
+
+def stop_info(stopcode):
+  times = otp.stop_times(stopcode)
+  return message("NOT YET IMPLEMENTED - stop %s" % stopcode)
 
 def help():
   return message(HELP_TEXT)
@@ -216,8 +226,7 @@ def directions(dirfrom,dirto,mode,at):
   if at:
     date = parse_natural_date(at)
   plan = otp.plan(from_place,to_place,mode.upper(),date)
-  inst = plan_instructions(plan)
-  return ('OK',sms_chunk(inst),'')
+  return plan_instructions(plan)
 
 def match_action(text):
   for patterntext,funcname in ACTIONS:
@@ -228,6 +237,20 @@ def match_action(text):
   return None
 
 def handle_text(smsbody,cookies=None):
+  # cookie data is JSON with response for special "shortcodes"
+  # a response can be an array in which cases it is a series of text messages
+  # or a string in which case it is a command which is reevaluated
+  if cookies:
+    cookie_key = smsbody.lower()
+    cookie_data = json.loads(cookies)
+    if cookie_key in cookie_data:
+      result = cookie_data[cookie_key]
+      if isinstance(result,basestring):
+        smsbody = result
+      else:
+        # return none as cookie data so that cookie is not reset 
+        # and user can follow up with more details
+        return ('OK',result,None)
   text = re.sub(r'\s+',' ',smsbody).strip()
   action = match_action(text)
   if action:
