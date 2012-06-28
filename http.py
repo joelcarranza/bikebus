@@ -42,17 +42,17 @@ urls = (
 
 class app:
   def POST(self):
-    #fromplace = web.input().fromplace
-    #toplace = web.input().toplace
-    #from_result,from_ll = geocoder.geocode(fromplace)
-    #to_result,to_ll = geocoder.geocode(toplace)
-    # result = otp.plan(from_ll,to_ll,'ANY')
-    result = json.load(open('plan.json'))
+    fromplace = web.input().fromplace
+    toplace = web.input().toplace
+    from_result,from_ll = geocoder.geocode(fromplace)
+    to_result,to_ll = geocoder.geocode(toplace)
+    result = otp.plan(from_ll,to_ll,'ANY')
+    #result = json.load(open('plan.json'))
     return render.app(fromplace=fromplace,toplace=toplace,result=result,error=None)
   def GET(self):
-    # return render.app()
-    result = json.load(open('plan.json'))
-    return render.app(fromplace='From',toplace='To',result=result,error=None)
+    return render.app()
+    #result = json.load(open('plan.json'))
+    #return render.app(fromplace='From',toplace='To',result=result,error=None)
 
 class sms:
   def POST(self):

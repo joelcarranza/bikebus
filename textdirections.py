@@ -6,7 +6,6 @@ from geocoder import geocode
 import re
 import otp
 import dateutil.parser
-from datetime import datetime
 import textwrap
 import parsedatetime.parsedatetime as pdt
 import parsedatetime.parsedatetime_consts as pdc
