@@ -34,9 +34,8 @@ render = render_jinja(
 
 
 urls = (
-  # TODO: flip root and mobile at some point when testing is done
-  '/mobile', 'app',
-  '/', 'sms_debug',
+  '/', 'app',
+  '/sms-test', 'sms_debug',
   '/sms','sms'
 )
 
