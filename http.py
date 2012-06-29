@@ -42,13 +42,30 @@ urls = (
 
 class app:
   def POST(self):
+    tvars = dict(web.input())
+    tvars['error'] = None
+
     fromplace = web.input().fromplace
     toplace = web.input().toplace
-    from_result,from_ll = geocoder.geocode(fromplace)
-    to_result,to_ll = geocoder.geocode(toplace)
-    result = otp.plan(from_ll[0:2],to_ll[0:2],web.input().mode)
+    if not fromplace or not toplace:
+      tvars['error'] = 'Please enter a From and To address'
+      return render.app(**tvars)
+
+    from_result,fromgeo = geocoder.geocode(fromplace)
+    if from_result != 'OK':
+      tvars['error'] = 'Unable to find address for %s' % fromplace
+      return render.app(**tvars)
+    tvars['fromgeo'] = fromgeo
+
+    to_result,togeo = geocoder.geocode(toplace)
+    if to_result != 'OK':
+      tvars['error'] = 'Unable to find address for %s' % toplace
+      return render.app(**tvars)
+    tvars['togeo'] = togeo
+
+    tvars['result'] = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode)
     #result = json.load(open('plan.json'))
-    return render.app(mode=web.input().mode,fromplace=fromplace,toplace=toplace,result=result,error=None)
+    return render.app(**tvars)
   def GET(self):
     return render.app()
     #result = json.load(open('plan.json'))

@@ -59,11 +59,13 @@
 
     {% if result %}
       <div class="directions">
-        <h2 class="route-title">Directions from {{fromplace}} to {{toplace}}</h2>
       {% for itinerary in result.plan.itineraries[0:1] %}
+        {% if itinerary.legs|length > 1 %}
+        <h2 class="route-title">Directions from {{fromgeo[2]}} to {{togeo[2]}}</h2>
         <div class="subtitle">
           Estimated time: {{otp.format_duration(itinerary.endTime-itinerary.startTime)}}
         </div>
+        {% endif %}
         <ul class="legs">
         {% for leg in itinerary.legs %}
           <li class="leg">
@@ -121,7 +123,9 @@
     {% endif %}
 
     {% if error %}
+    <div class="alert alert-error">
       {{ error }}
+    </div>
     {% endif %}
 
 {% endblock %}
