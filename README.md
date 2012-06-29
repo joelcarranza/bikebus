@@ -1,13 +1,21 @@
 bikebus
 =======
 
-A web application demonstrating "multi-modal" trip planning for the city of New Orleans, allowing a user to get directions through the city using any combination of walking, bicycling, and public transit. It is specifically designed to address the need of bicyclists who might like to incorporate public transit into their daily travels. 
-
-In order to provide access to the largest group of people, the app provides an interface through which a citizen can ask for directions via text message. 
+A mobile web application and SMS interface demonstrating "multi-modal" trip planning for the city of New Orleans, allowing a user to get directions through the city while "on the go" using any combination of walking, bicycling, and public transit. Most mapping providers (i.e. Google, Bing Maps, Mapquest) can provide directions of this form, but they are typically limited to a single mode of travel. This application is specifically designed to address the need of bicyclists who might like to incorporate public transit into their daily travels, while simultaneously demonstrating the power of open data sources. Realizing that many people do not necessarily have access to a mobile phone with a web browser, we provide an alternate interface for directions via SMS text message. 
 
 This code was written for the [Good Idea For New Orleans][good] project, with the aim of making "making bike transportation easier and safer". It leans heavily on open source software and open data.
 
 [good]:http://handbook.neighborland.com/good-ideas-for-new-orleans/
+
+# Webapp
+
+The webapp is available at:
+
+	http://stillthedudeabides.com/bikebus/
+
+It provides a mobile-centric interface for trip planning. It's primary goal is speed, ease-of-use, and broad device support. The webapp uses [Google's static maps][google-static-maps] for displaying locations, with external links to fully interactive maps. 
+
+[google-static-maps]:https://developers.google.com/maps/documentation/staticmaps/
 
 # SMS 
 
@@ -18,11 +26,11 @@ A user can ask for directions via text message by texting XXX-XXXX (TODO). An ex
 	bus directions  from Audubon  Park to Superdome
 	Audubon Park to Superdome by bike bus at 3:40
 
-Texting HELP to the service provides some brief instructions
+Texting HELP to the service provides some brief instructions.
 
-# Mobile Webapp
+A web interface to SMS, which allows you to emulate the sending and receiving of text messages without actually using a phone, is available at:
 
-TODO
+	http://stillthedudeabides.com/bikebus/sms-test
 
 # Technical Bits
 
