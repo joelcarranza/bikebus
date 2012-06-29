@@ -53,9 +53,13 @@ def format_distance(distance):
     return "%.1fmi" % miles
 
 def format_duration(delta):
+  # TODO: support hours/minutes
   return "%d minutes" % int(delta/60000)
 
-def format_date(ts,fmt="%I:%M%p"):
+# the leading - on %-I not supported on some platforms/versions?
+# TODO: hate that uppercase AM/PM - perhaps would be better to format
+# ourselves - would lose ability to format with arbitrary string
+def format_date(ts,fmt="%-I:%M%p"):
   # ts is in milliseconds since the epoch
   date = datetime.fromtimestamp(ts/1000)
   # use minus to remove trailing zeroes!
@@ -66,6 +70,7 @@ def all_modes():
   return MODE_PARAMS.keys()
 
 def stop_times(stopcode):
+  # TODO: this doesn't work
   headers = {}
   params = dict(agency='NORTA',id=stopcode)
   r = requests.get(URL+'transit/stopTimesForStop',headers=headers,params=params)
