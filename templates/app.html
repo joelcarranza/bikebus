@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 
 {% block head %}
+  {# TODO: include direction FROM to TO here? #}
+  <title>Bike Bus</title>
   <link rel="stylesheet" href="static/css/app.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>
@@ -116,7 +118,11 @@
           <li>Arrives at {{leg.to.name}} - Stop #{{leg.to.stopCode}} at {{otp.format_date(leg.to.arrival)}}</li>
           {% endif %}
           </ol>
-          <a href="http://maps.google.com"><img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:green|{{leg.from.lat}},{{leg.from.lon}}&markers={{leg.to.lat}},{{leg.to.lon}}&size=320x240&path=weight:5%7Ccolor:red%7Cenc:{{leg.legGeometry.points}}&sensor=false"></a>
+          {# TODO: we could do only a couple decimal places for lat/lon here #}
+          {% set dirflags = {'BUS':'r','TRAM':'r','WALK':'w','BICYCLE':'b'} %}
+          {# See: http://mapki.com/wiki/Google_Map_Parameters  #}
+          <a href="http://maps.google.com?saddr={{leg.from.lat}},{{leg.from.lon}}&&daddr={{leg.to.lat}},{{leg.to.lon}}&dirflg={{dirflags[leg.mode]}}">
+            <img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:green|{{leg.from.lat}},{{leg.from.lon}}&markers={{leg.to.lat}},{{leg.to.lon}}&size=320x240&path=weight:5%7Ccolor:red%7Cenc:{{leg.legGeometry.points}}&sensor=false"></a>
           </div>
           <hr>
           </li>
