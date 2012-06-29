@@ -2,6 +2,7 @@ import requests
 import xml.etree.ElementTree as ET
 import json
 from datetime import datetime
+import re
 
 # provides an interface to the OpenTripPlanner web service
 
@@ -12,7 +13,7 @@ URL = 'http://50.116.38.181:8080/opentripplanner-api-webapp/ws/'
 MODE_PARAMS = {
     # we can hack this to disallow streetcars here or we can do it in the
     # GTFS feed
-    'ANY':{'mode':'TRANSIT,BICYCLE,WALK'},
+    'ANY':{'mode':'TRANSIT,BICYCLE'},
     'BUS':{'mode':'TRANSIT,WALK'},
     'STREETCAR':{'mode':'TRANSIT,WALK'},
     'BIKE':{'mode':'BICYCLE'},
@@ -31,17 +32,35 @@ def verb_for_mode(mode):
   else:
     return mode
 
+def step_instructions(step,mode):
+  name = step['streetName']
+  direction = step.get('relativeDirection')
+  if direction:
+    direction = re.sub('_',' ',direction.capitalize())
+    return "%s on %s" % (direction,name)
+  else:
+    direction = step.get('absoluteDirection')
+    direction = re.sub('_',' ',direction.lower())
+    return "%s %s on %s" % (mode.capitalize(),direction,name)
+
 def format_distance(distance):
   # distance in meters
-  miles = distance/ 1609.344
-  return "%.1f" % miles
+  if distance < 1609:
+    feet = distance/ 3.2808399
+    return "%dft" % feet
+  else:
+    miles = distance/ 1609.344
+    return "%.1fmi" % miles
 
-def format_date(ts):
+def format_duration(delta):
+  return "%d minutes" % int(delta/60000)
+
+def format_date(ts,fmt="%I:%M%p"):
   # ts is in milliseconds since the epoch
   date = datetime.fromtimestamp(ts/1000)
   # use minus to remove trailing zeroes!
   # does this not work on cygwin windows? python version?
-  return date.strftime("%-I:%M%p")
+  return date.strftime(fmt)
 
 def all_modes():
   return MODE_PARAMS.keys()

@@ -34,6 +34,7 @@ def geocode(search):
   # status OK ZERO_RESULTS OVER_QUERY_LIMIT
   if status == 'OK':
     for result in result['results']:
+      addr = result['formatted_address']
       location_type = result['geometry']['location_type']
       # require a decent location - exclude matches that just identify the
       # city center - i.e. New Orleans, LA
@@ -45,6 +46,6 @@ def geocode(search):
       lat = result['geometry']['location']['lat']
       lon = result['geometry']['location']['lng']
       if lat_min <= lat <= lat_max and lon_min <= lon <= lon_max:
-        return status,(lat,lon)
+        return status,(lat,lon,addr)
   return 'ZERO_RESULTS',None
 

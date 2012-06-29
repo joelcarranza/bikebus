@@ -55,15 +55,6 @@ def abbreviate(name):
     name = re.sub(pattern,repl,name)
   return name
 
-def step_instructions(step):
-  direction = step.get('relativeDirection')
-  if direction:
-    direction = re.sub('_',' ',direction.lower())
-  name = abbreviate(step['streetName'])
-  if direction:
-    return "%s on %s" % (direction,name)
-  else:
-    return name
 
 def leg_details(leg):
   mode = leg['mode']
@@ -71,10 +62,10 @@ def leg_details(leg):
   fromname = abbreviate(leg['from']['name'])
   toname = abbreviate(leg['to']['name'])
   dist = leg['distance']
-  suffix = " (%smi)" % otp.format_distance(dist)
+  suffix = " (%s)" % otp.format_distance(dist)
   detail_text = "%s from %s to %s%s\n" % (verb,fromname,toname,suffix)
   steps = leg['steps']
-  return detail_text+'\n'.join([step_instructions(step) for step in steps])
+  return detail_text+'\n'.join([otp.step_instructions(step,mode) for step in steps])
 
 def plan_instructions(doc):
   # choose a single itinerary
@@ -224,7 +215,7 @@ def directions(dirfrom,dirto,mode,at):
   date = None
   if at:
     date = parse_natural_date(at)
-  plan = otp.plan(from_place,to_place,mode.upper(),date)
+  plan = otp.plan(from_place[0:2],to_place[0:2],mode.upper(),date)
   return plan_instructions(plan)
 
 def match_action(text):

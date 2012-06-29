@@ -46,9 +46,9 @@ class app:
     toplace = web.input().toplace
     from_result,from_ll = geocoder.geocode(fromplace)
     to_result,to_ll = geocoder.geocode(toplace)
-    result = otp.plan(from_ll,to_ll,'ANY')
+    result = otp.plan(from_ll[0:2],to_ll[0:2],web.input().mode)
     #result = json.load(open('plan.json'))
-    return render.app(fromplace=fromplace,toplace=toplace,result=result,error=None)
+    return render.app(mode=web.input().mode,fromplace=fromplace,toplace=toplace,result=result,error=None)
   def GET(self):
     return render.app()
     #result = json.load(open('plan.json'))

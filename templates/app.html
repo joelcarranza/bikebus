@@ -1,22 +1,58 @@
 {% extends "layout.html" %}
+
+{% block header %}
+  <link rel="stylesheet" href="static/css/app.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>
+    
+ $(document).ready(function() {
+   if($('.details').length > 1) {
+     $('.details').hide();
+   }
+   $(".leg-header").click(function() {
+     $('.details',this.parentNode).toggle();
+   });
+ });
+
+
+  </script>
+{% endblock %}
+
 {% block content %}
 
 <div class="row">
+  <div class="span6 header">
+    <h1>BikeBus Directions</h1>
+  </div>
+</div>
+<div class="row">
   <div class="span6">
-    <h1>BikeBus</h2>
+    <div class="prompt">
     <form class="form-horizontal" method="POST">
       <fieldset>
           <div class="control-group">
+            <label class="control-label" for="input01">Mode</label>
+            <div class="controls">
+              <select name="mode">
+                <option value="ANY" {% if mode=='ANY' %}SELECTED{% endif %}>Bike/Bus</option>
+                <option value="BUS" {% if mode=='BUS' %}SELECTED{% endif %}>Walk/Bus</option>
+                <option value="BIKE" {% if mode=='BIKE' %}SELECTED{% endif %}>Bike</option>
+                <option value="WALK" {% if mode=='WALK' %}SELECTED{% endif %}>Walk</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control-group">
             <label class="control-label" for="input01">From</label>
             <div class="controls">
-              <input type="text" class="input-large" name="fromplace">
+              <input type="text" class="input-large" name="fromplace" value="{{fromplace}}"> 
             </div>
           </div>
         
           <div class="control-group">
             <label class="control-label" for="input01">To</label>
             <div class="controls">
-              <input type="text" class="input-large" name="toplace">
+              <input type="text" class="input-large" name="toplace" value="{{toplace}}">
             </div>
           </div>
           
@@ -25,41 +61,65 @@
           </div>
       </fieldset>
     </form>
+    </div>
 
 
     {% if result %}
+      <div class="directions">
+        <h2 class="route-title">Directions from {{fromplace}} to {{toplace}}</h2>
       {% for itinerary in result.plan.itineraries[0:1] %}
-      <div class="itinerary">
-        <ul>
+        <div class="subtitle">
+          Estimated time: {{otp.format_duration(itinerary.endTime-itinerary.startTime)}}
+        </div>
+        <ul class="legs">
         {% for leg in itinerary.legs %}
-          <li>
+          <li class="leg">
+          
+          <div class="leg-header">
+          <div class="sign">
+            <img src="static/img/{{leg.mode}}.png" width="32" height="23">  
+            {% if leg.mode == 'WALK' or leg.mode == 'BICYCLE' %}
+              {{otp.format_distance(leg.distance)}}
+            {% endif %}
+            {% if leg.mode == 'BUS' %}
+              #{{leg.route}}
+            {% endif %}
+          </div>
+            {% if leg.mode == 'BUS' or leg.mode == 'TRAM' %}
+              <div class="eta">{{otp.format_date(leg.startTime)}}</div>
+           {% endif %}
+          <div class="title">
           {{ otp.verb_for_mode(leg.mode) }}
           from
           {{ leg.from.name}}
           to
-          {{ leg.to.name}}
-          {% if leg.mode == 'BUS' %}
-          @ {{otp.format_date(leg.startTime)}}
-          {% endif %}
+          {{ leg.to.name}}</div>
+          <div class="subtitle">
+            {% if leg.mode == 'BUS' or leg.mode == 'TRAM' %}
+            {{leg.routeLongName}} - {{leg.headsign}} - 
+              {{otp.format_duration(leg.duration)}}
+            {% else %}
+              Approx. {{otp.format_duration(leg.duration)}}
+           {% endif %}
+          </div>
+        </div>
 
-          {% if leg.mode == 'WALK' or leg.mode == 'BIKE' %}
-            ({{otp.format_distance(leg.distance)}}mi)
-          {% endif %}
-
-          <ul>
+          <div class="details">
+          <ol class="steps">
           {% for step in leg.steps %}
           <li>
-          {% if step.relativeDirection %}
-          {{ step.relativeDirection|capitalize }}
-          on
-          {% else %}
-          Start at
-          {% endif %}
-          {{step.streetName}}
+          <div class="distance">{{ otp.format_distance(step.distance) }}</div>
+          {{ otp.step_instructions(step,leg.mode) }}
           </li>
           {% endfor %}
-          </ul>
-          <img src="http://maps.googleapis.com/maps/api/staticmap?size=320x240&path=weight:5%7Ccolor:red%7Cenc:{{leg.legGeometry.points}}&sensor=false">
+          {% if leg.mode == 'BUS' or leg.mode == 'TRAM' %}
+          <li>Departs from {{leg.from.name}} - Stop #{{leg.from.stopCode}}</li>
+          <li>Arrives at {{leg.to.name}} - Stop #{{leg.to.stopCode}} at {{otp.format_date(leg.to.arrival)}}</li>
+          {% endif %}
+          </ol>
+          <a href="http://maps.google.com"><img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:green|{{leg.from.lat}},{{leg.from.lon}}&markers={{leg.to.lat}},{{leg.to.lon}}&size=320x240&path=weight:5%7Ccolor:red%7Cenc:{{leg.legGeometry.points}}&sensor=false"></a>
+          </div>
+          <hr>
           </li>
         {% endfor %}
       </ul>
@@ -70,6 +130,12 @@
     {% if error %}
       {{ error }}
     {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="span6 footer">
+    This is a footer where we link to stuff and 
+    provide a disclaimer about the directions
   </div>
 </div>
 
