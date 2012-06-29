@@ -8,10 +8,12 @@
       <textarea  class="span5" name="q" rows="5" placeholder="Type something…">{{question}}</textarea>
       <span class="help-block">
         <b>Examples</b><br>
-          Audubon Park to Superdome<br>
-          directions from Audobon Park to Superdome by bike<br>
-          bus directions  from Audubon  Park to Superdome<br>
-          Audubon Park to Superdome by bus at 3:40<br>
+        <ul>
+          <li>Audubon Park to Superdome
+          <li>directions from Audobon Park to Superdome by bike
+          <li>bus directions  from Audubon  Park to Superdome
+          <li>Audubon Park to Superdome by bus at 3:40
+       </ul>
       </span>
       <button type="submit" class="btn">Submit</button>
     </form>
@@ -20,7 +22,7 @@
     {% if message %}
       <h2>Response</h2>
       {% for text in message %}
-        <div class="sms">
+        <div class="well">
         <span class="badge" style="float:right">
           {{ text|length }}
         </span>

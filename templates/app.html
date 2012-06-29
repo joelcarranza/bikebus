@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block header %}
+{% block head %}
   <link rel="stylesheet" href="static/css/app.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>
@@ -20,13 +20,6 @@
 
 {% block content %}
 
-<div class="row">
-  <div class="span6 header">
-    <h1>BikeBus Directions</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="span6">
     <div class="prompt">
     <form class="form-horizontal" method="POST">
       <fieldset>
@@ -130,13 +123,5 @@
     {% if error %}
       {{ error }}
     {% endif %}
-  </div>
-</div>
-<div class="row">
-  <div class="span6 footer">
-    This is a footer where we link to stuff and 
-    provide a disclaimer about the directions
-  </div>
-</div>
 
 {% endblock %}

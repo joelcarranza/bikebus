@@ -99,7 +99,7 @@ def plan_instructions(doc):
         if len(legs) == 1:
           steps = leg['steps']
           if len(steps) > 2:
-            suffix += ' via\n'+'\n'.join([step_instructions(step) for step in steps[1:-1]])
+            suffix += ' via\n'+'\n'.join([otp.step_instructions(step,mode) for step in steps[1:-1]])
         else:
           details[n] = sms_chunk(leg_details(leg))
       # append the bus arrival time
