@@ -1863,6 +1863,10 @@ table tbody tr:hover th {
   width: 300px;
   margin: 0px auto;
 }
+footer {
+  font-size: 10;
+  color: #808080;
+}
 ul,
 ol {
   padding-left: 0px;

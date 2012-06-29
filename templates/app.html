@@ -60,12 +60,10 @@
     {% if result %}
       <div class="directions">
       {% for itinerary in result.plan.itineraries[0:1] %}
-        {% if itinerary.legs|length > 1 %}
         <h2 class="route-title">Directions from {{fromgeo[2]}} to {{togeo[2]}}</h2>
         <div class="subtitle">
           Estimated time: {{otp.format_duration(itinerary.endTime-itinerary.startTime)}}
         </div>
-        {% endif %}
         <ul class="legs">
         {% for leg in itinerary.legs %}
           <li class="leg">
@@ -83,6 +81,11 @@
             {% if leg.mode == 'BUS' or leg.mode == 'TRAM' %}
               <div class="eta">{{otp.format_date(leg.startTime)}}</div>
            {% endif %}
+          {% if itinerary.legs|length == 1 %}
+          <div class="title">
+          {{ otp.verb_for_mode(leg.mode) }}
+          </div>
+          {% else %}
           <div class="title">
           {{ otp.verb_for_mode(leg.mode) }}
           from
@@ -97,6 +100,7 @@
               Approx. {{otp.format_duration(leg.duration)}}
            {% endif %}
           </div>
+          {% endif %}
         </div>
 
           <div class="details">
