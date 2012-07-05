@@ -25,7 +25,7 @@ ABBREVIATIONS = [
 ]
 
 
-AT_PATTERN = r'(\s+(?:at|in)\s+.+)?'
+AT_PATTERN = r'(?:\s+(leave|arrive|depart)(?:\s+(?:by|at|in))\s+(.+))?'
 MODE_PATTERN = r'bike|bus|walk|walking|streetcar'
 FROM_TO_PATTERN = r'(?:from\s+)?(.+?)\s+to\s+(.+?)'
 
@@ -167,11 +167,11 @@ def sms_chunk(text):
         part_length = line_length
     return parts
 
-def directions1(mode,dirfrom,dirto,at):
-  return directions(dirfrom,dirto,mode,at)
+def directions1(mode,dirfrom,dirto,atmode,at):
+  return directions(dirfrom,dirto,mode,at,atmode)
 
-def directions2(dirfrom,dirto,mode,at):
-  return directions(dirfrom,dirto,mode,at)
+def directions2(dirfrom,dirto,mode,atmode,at):
+  return directions(dirfrom,dirto,mode,at,atmode)
 
 def parse_natural_date(text):
   # create an instance of Constants class so we can override some of the defaults
@@ -203,7 +203,7 @@ def error_for_geocode(result,query):
   else:
     return message("Unable to locate %s" % query)
 
-def directions(dirfrom,dirto,mode,at):
+def directions(dirfrom,dirto,mode,at,atmode):
   if not mode:
     mode = 'ANY'
   from_result,from_place = geocode(dirfrom)
@@ -213,9 +213,15 @@ def directions(dirfrom,dirto,mode,at):
   if to_result != 'OK':
     return error_for_geocode(to_result,dirto)
   date = None
+  datemode = None
   if at:
     date = parse_natural_date(at)
-  plan = otp.plan(from_place[0:2],to_place[0:2],mode.upper(),date)
+    if atmode == 'arrive':
+      datemode = 'arrive'
+    else:
+      datemode = 'depart'
+    print "date chosen %s,mode=%s" % (date,datemode)
+  plan = otp.plan(from_place[0:2],to_place[0:2],mode.upper(),date,datemode)
   return plan_instructions(plan)
 
 def match_action(text):

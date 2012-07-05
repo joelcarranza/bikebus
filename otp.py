@@ -78,13 +78,18 @@ def stop_times(stopcode):
   return json.loads(r.text)
 
 
-def plan(fromPlace,toPlace,mode,date=None):
+def plan(fromPlace,toPlace,mode,date=None,datemode=None):
   headers = {}
   params = dict(MODE_PARAMS[mode])
   params['fromPlace'] = "%f,%f" % fromPlace
   params['toPlace'] = "%f,%f" % toPlace
   if date:
     params['date'] = date.isoformat()
+  if datemode == 'arrive':
+    params['arriveBy'] = 'true' 
+  if datemode == 'depart':
+    params['arriveBy'] = 'false' 
+
   r = requests.get(URL+'plan',headers=headers,params=params)
   r.raise_for_status()
   return json.loads(r.text)
