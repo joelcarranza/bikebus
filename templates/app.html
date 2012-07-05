@@ -14,8 +14,9 @@
    $(".leg-header").click(function() {
      $('.details',this.parentNode).toggle();
    });
-   $("#edit-link").click(function() {
+   $("#edit-link").click(function(event) {
      $("#prompt").show()
+     event.preventDefault();
    })
  });
 
@@ -26,7 +27,7 @@
 {% block content %}
 
 <div id="prompt" {%if result %}style="display:none"{%endif%}>
-    <form class="form-horizontal" method="POST">
+    <form class="form-horizontal" method="GET">
       <fieldset>
           <div class="control-group">
             <label class="control-label" for="input01">Mode</label>
@@ -43,14 +44,14 @@
           <div class="control-group">
             <label class="control-label" for="input01">From</label>
             <div class="controls">
-              <input type="text" class="input-large" name="fromplace" value="{{fromplace}}"> 
+              <input type="text" class="input-large" name="fromplace" value="{{from}}"> 
             </div>
           </div>
         
           <div class="control-group">
             <label class="control-label" for="input01">To</label>
             <div class="controls">
-              <input type="text" class="input-large" name="toplace" value="{{toplace}}">
+              <input type="text" class="input-large" name="toplace" value="{{to}}">
             </div>
           </div>
           

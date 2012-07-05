@@ -40,12 +40,15 @@ urls = (
 )
 
 class app:
-  def POST(self):
+  def GET(self):
+    if 'mode' not in web.input():
+      return render.app()
+
     tvars = dict(web.input())
     tvars['error'] = None
 
-    fromplace = web.input().fromplace
-    toplace = web.input().toplace
+    fromplace = getattr(web.input(),'from')
+    toplace = web.input().to
     if not fromplace or not toplace:
       tvars['error'] = 'Please enter a From and To address'
       return render.app(**tvars)
@@ -65,10 +68,6 @@ class app:
     tvars['result'] = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode)
     #result = json.load(open('plan.json'))
     return render.app(**tvars)
-  def GET(self):
-    return render.app()
-    #result = json.load(open('plan.json'))
-    #return render.app(fromplace='From',toplace='To',result=result,error=None)
 
 class sms:
   def POST(self):
