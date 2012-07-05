@@ -14,6 +14,9 @@
    $(".leg-header").click(function() {
      $('.details',this.parentNode).toggle();
    });
+   $("#edit-link").click(function() {
+     $("#prompt").show()
+   })
  });
 
 
@@ -22,7 +25,7 @@
 
 {% block content %}
 
-    <div class="prompt">
+<div id="prompt" {%if result %}style="display:none"{%endif%}>
     <form class="form-horizontal" method="POST">
       <fieldset>
           <div class="control-group">
@@ -62,7 +65,9 @@
     {% if result %}
       <div class="directions">
       {% for itinerary in result.plan.itineraries[0:1] %}
-        <h2 class="route-title">Directions from {{fromgeo[2]}} to {{togeo[2]}}</h2>
+      <h2 class="route-title">Directions from {{fromgeo[2]}} to {{togeo[2]}}
+      </h2>
+        <a href="#" id="edit-link">Edit</a>
         <div class="subtitle">
           Estimated time: {{otp.format_duration(itinerary.endTime-itinerary.startTime)}}
         </div>
