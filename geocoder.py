@@ -22,7 +22,9 @@ BOUNDS = (
 def geocode(search):
   llmatch = re.match(r'^(-?\d+\.\d+)\s*,\s*(-?\d+\.\d+)$',search)
   if llmatch:
-    return ('OK',(float(llmatch.group(1)),float(llmatch.group(2))))
+    lat = float(llmatch.group(1))
+    lon = float(llmatch.group(2))
+    return ('OK',(lat,lon,"%.4f,%.4f" % (lat,lon)))
   # TODO: support straight up lat/lon search
   params = dict(sensor="true",
       address=search,
