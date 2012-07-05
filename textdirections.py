@@ -56,6 +56,9 @@ def abbreviate(name):
   return name
 
 
+def step_instructions(step,mode):
+  return abbreviate(otp.step_instructions(step,mode)) 
+
 def leg_details(leg):
   mode = leg['mode']
   verb = otp.verb_for_mode(mode)
@@ -65,13 +68,12 @@ def leg_details(leg):
   suffix = " (%s)" % otp.format_distance(dist)
   detail_text = "%s from %s to %s%s\n" % (verb,fromname,toname,suffix)
   steps = leg['steps']
-  return detail_text+'\n'.join([otp.step_instructions(step,mode) for step in steps])
+  return detail_text+'\n'.join([step_instructions(step,mode) for step in steps])
 
 def plan_instructions(doc):
-  # choose a single itinerary
-  itinerary = doc['plan']['itineraries'][0]
-  # TODO: what if the itinerary fails?
-  if len(itinerary):
+  if len(doc['plan']['itineraries']):
+    # choose a single itinerary
+    itinerary = doc['plan']['itineraries'][0]
     legtext = []
     legn = 0
     legs = itinerary['legs']
@@ -93,13 +95,12 @@ def plan_instructions(doc):
       # include bike/walk distance
       if mode == 'BICYCLE' or mode == 'WALK':
         dist = leg['distance']
-        if dist > 175: # ~approx 0.1 miles, anything closer don't bother with distance
-          suffix = " (%smi)" % otp.format_distance(dist)
+        suffix = " (%s)" % otp.format_distance(dist)
         # if this the only leg then include the details
         if len(legs) == 1:
           steps = leg['steps']
           if len(steps) > 2:
-            suffix += ' via\n'+'\n'.join([otp.step_instructions(step,mode) for step in steps[1:-1]])
+            suffix += ' via\n'+'\n'.join([step_instructions(step,mode) for step in steps[1:-1]])
         else:
           details[n] = sms_chunk(leg_details(leg))
       # append the bus arrival time
