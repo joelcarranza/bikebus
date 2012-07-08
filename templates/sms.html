@@ -1,36 +1,32 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="row">
-  <div class="span6">
-    <h2>SMS Debug Console</h2>
-    <form method="POST">
-      <textarea  class="span5" name="q" rows="5" placeholder="Type something…">{{question}}</textarea>
-      <span class="help-block">
-        <b>Examples</b><br>
-        <ul>
-          <li>Audubon Park to Superdome
-          <li>directions from Audobon Park to Superdome by bike
-          <li>bus directions  from Audubon  Park to Superdome
-          <li>Audubon Park to Superdome by bus at 3:40
-       </ul>
-      </span>
-      <button type="submit" class="btn">Submit</button>
-    </form>
+<form method="POST">
+  <label>SMS Debug Console</label>
+  <textarea  class="span5" name="q" rows="5" placeholder="Type something…">{{question}}</textarea>
+  <p>
+    <b>Examples</b>
+    <ul>
+      <li>Audubon Park to Superdome
+      <li>directions from Audobon Park to Superdome by bike
+      <li>bus directions  from Audubon  Park to Superdome
+      <li>Audubon Park to Superdome by bus at 3:40
+   </ul>
+  </p>
+  <button type="submit" class="btn btn-primary">Go</button>
+</form>
 
 
-    {% if message %}
-      <h2>Response</h2>
-      {% for text in message %}
-        <div class="well">
-        <span class="badge" style="float:right">
-          {{ text|length }}
-        </span>
-        <pre>{{text}}</pre>
-        </div>
-      {% endfor %}
-    {% endif %}
-  </div>
-</div>
+{% if message %}
+  <h2>Response</h2>
+  {% for text in message %}
+    <div class="well">
+    <span class="badge" style="float:right">
+      {{ text|length }}
+    </span>
+    <pre>{{text}}</pre>
+    </div>
+  {% endfor %}
+{% endif %}
 
 {% endblock %}

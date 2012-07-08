@@ -1867,6 +1867,10 @@ header h1 {
   width: 300px;
   margin: 0px auto;
 }
+.container {
+  margin-left: 1em;
+  margin-right: 1em;
+}
 footer {
   font-size: 10;
   color: #808080;
