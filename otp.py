@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 import json
 from datetime import datetime
 import re
+import time
 
 # provides an interface to the OpenTripPlanner web service
 
@@ -68,15 +69,6 @@ def format_date(ts,fmt="%-I:%M%p"):
 
 def all_modes():
   return MODE_PARAMS.keys()
-
-def stop_times(stopcode):
-  # TODO: this doesn't work
-  headers = {}
-  params = dict(agency='NORTA',id=stopcode)
-  r = requests.get(URL+'transit/stopTimesForStop',headers=headers,params=params)
-  r.raise_for_status()
-  return json.loads(r.text)
-
 
 def plan(fromPlace,toPlace,mode,date=None,datemode=None):
   headers = {}

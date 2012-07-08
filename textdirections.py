@@ -135,7 +135,7 @@ def message(text):
   return ("MSG",[text],'')
 
 def stop_info(stopcode):
-  times = otp.stop_times(stopcode)
+  # This is tricky - not working yet
   return message("NOT YET IMPLEMENTED - stop %s" % stopcode)
 
 def help():
