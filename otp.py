@@ -93,11 +93,12 @@ def plan(fromPlace,toPlace,mode,date=None,datemode=None):
   params['fromPlace'] = "%f,%f" % fromPlace
   params['toPlace'] = "%f,%f" % toPlace
   if date:
-    params['date'] = date.isoformat()
-  if datemode == 'arrive':
-    params['arriveBy'] = 'true' 
-  if datemode == 'depart':
-    params['arriveBy'] = 'false' 
+    params['date'] = date.date().isoformat()
+    params['time'] = date.strftime("%I:%M %p").upper()
+    if datemode == 'arrive':
+      params['arriveBy'] = 'true' 
+    if datemode == 'depart':
+      params['arriveBy'] = 'false' 
   # TODO: catch errors here and return status code
   r = requests.get(URL+'plan',headers=headers,params=params)
   r.raise_for_status()

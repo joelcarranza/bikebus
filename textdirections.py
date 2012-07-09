@@ -7,8 +7,6 @@ import re
 import otp
 import dateutil.parser
 import textwrap
-import parsedatetime.parsedatetime as pdt
-import parsedatetime.parsedatetime_consts as pdc
 import json
 
 # We scan output text for these patterns and replace them with the matching
@@ -224,29 +222,67 @@ def directions1(mode,dirfrom,dirto,atmode,at):
 def directions2(dirfrom,dirto,mode,atmode,at):
   return directions(dirfrom,dirto,mode,at,atmode)
 
-def parse_natural_date(text):
-  # create an instance of Constants class so we can override some of the defaults
-  dc = pdc.Constants()
-  # create an instance of the Calendar class and pass in our Constants # object instead of letting it create a default
-  dp = pdt.Calendar(dc)    
-  # http://stackoverflow.com/questions/1810432/handling-the-different-results-from-parsedatetime
-  result,what = dp.parse(text)
-  # what was returned (see http://code-bear.com/code/parsedatetime/docs/)
-  # 0 = failed to parse
-  # 1 = date (with current time, as a struct_time)
-  # 2 = time (with current date, as a struct_time)
-  # 3 = datetime
-  if what in (1,2):
-      # result is struct_time
-      dt = datetime.datetime( *result[:6] )
-  elif what == 3:
-      # result is a datetime
-      dt = result
+def parse_natural_date(text,date=None):
+  if date is None:
+    date = datetime.datetime.today()
+  # remove seconds
+  date = date.replace(second=0,microsecond=0)
+  # normalize remove anything but numbers and letters
+  text = re.sub(r'[^\d\w]','',text).lower()
 
-  if dt is None:
-      # Failed to parse
-      raise ValueError, ("Don't understand date '"+s+"'")
-  return dt
+  # shortcuts for labels for specific times
+  if text == 'noon':
+    text = '12p'
+  elif text == 'midnight':
+    text = '12a'
+
+  # match to int+modifier
+  m = re.match(r'(\d+)([a-z]+)?',text)
+  if m:
+    timestr,mod = m.groups()
+    time = int(timestr)
+    # N hr - relative
+    if mod in ['h','hr','hour','hours']:
+      return date + datetime.timedelta(hours=time)
+    # N min - relative
+    elif mod in ['m','min','minute','minutes']:
+      return date + datetime.timedelta(minutes=time)
+    # TODO: what about o'clock?
+    # specify am/pm
+    elif mod in ['a','am','p','pm']:
+      if time < 24: # just hours
+        hour = time
+        minute = 0
+      elif time > 100:
+        hour = int(time/100)
+        minute = time % 100
+      else:
+        raise ValueError, ("Don't understand date '"+text+"'")
+      if hour == 12: # stupid 12 - bleh
+        hour = 0
+      if mod[0] == 'p':
+        hour += 12
+      newdate = date.replace(hour=hour,minute=minute)
+      while newdate < date:
+        newdate = newdate + datetime.timedelta(hours=24)
+      return newdate
+    # raw number
+    elif mod is None:
+      if time < 24: # just hours
+        hour = time
+        minute = 0
+      elif time > 100:
+        hour = int(time/100)
+        minute = time % 100
+      else:
+        raise ValueError, ("Don't understand date '"+text+"'")
+      if hour == 12:
+        hour = 0
+      newdate = date.replace(hour=hour,minute=minute)
+      while newdate < date:
+        newdate = newdate + datetime.timedelta(hours=12)
+      return newdate
+  raise ValueError, ("Don't understand date '"+text+"'")
   
 def error_for_geocode(result,query):
   if result == 'APPROXIMATE':
@@ -310,6 +346,7 @@ def handle_text(smsbody,cookies=None):
 if __name__ == '__main__':
   import sys
   import os
+  cookies = None
   for arg in sys.argv[1:]:
     if arg[-5:] == '.json':
       f = open(arg)
