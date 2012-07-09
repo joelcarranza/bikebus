@@ -1,0 +1,311 @@
+{
+  "plan": {
+    "date": 1341798389000, 
+    "from": {
+      "arrival": null, 
+      "departure": null, 
+      "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.08325857376963,29.99184708146095]}", 
+      "lat": 29.99184708146095, 
+      "lon": -90.08325857376963, 
+      "name": "Florida Ave", 
+      "orig": null, 
+      "stopCode": null, 
+      "stopId": null, 
+      "zoneId": null
+    }, 
+    "itineraries": [
+      {
+        "duration": 1332000, 
+        "elevationGained": 0.0, 
+        "elevationLost": 0.0, 
+        "endTime": 1341799721000, 
+        "fare": null, 
+        "legs": [
+          {
+            "agencyId": null, 
+            "agencyName": null, 
+            "agencyTimeZoneOffset": 0, 
+            "agencyUrl": null, 
+            "alightRule": null, 
+            "boardRule": null, 
+            "bogusNonTransitLeg": false, 
+            "distance": 6285.601455804438, 
+            "duration": 1332000, 
+            "endTime": 1341799721000, 
+            "from": {
+              "arrival": null, 
+              "departure": null, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.08325857376963,29.99184708146095]}", 
+              "lat": 29.99184708146095, 
+              "lon": -90.08325857376963, 
+              "name": "Florida Ave", 
+              "orig": null, 
+              "stopCode": null, 
+              "stopId": null, 
+              "zoneId": null
+            }, 
+            "headsign": null, 
+            "interlineWithPreviousLeg": null, 
+            "legGeometry": {
+              "length": 154, 
+              "levels": null, 
+              "points": "_x`vDjkydPEcCAsBCiCAuBCyACgCCmCGgE?aA?WBSDSPk@J[JCJANA|@ELCJEFEFQ@IBM@Y?]rAm@TMjAi@bCkAlAi@`@Oj@Qh@QNGd@WnAy@@A\\Sh@[h@YnAo@pB_AhAk@tBaAJGhAg@bBy@|Aq@zAw@HGHEZO~@c@zAq@x@a@j@[d@QpAs@bAg@tB}@bAg@JE~Aw@PKnAo@jB{@|DkBxBeA~@g@fEmBnAo@t@a@t@_@pB}@pAk@PKnDkBf@_@t@s@\\QbAe@|BgAn@[lB}@f@WfD_BXMlEwBjB}@JEZOLMb@^tAlALW|BwDjC`CJBPCVa@|AcCnBfBxCjCxCfCzCjC~BqDzBoDxBsDfCkEh@d@`@Zb@Xd@b@FFjAbApAbANN^X|BjBJJfA`AlAbAP]RGHAJFX_@ZVzBt@~Ch@NEP?ZJDE~A`@b@Rr@^`EbAdA_B\\BzAPhBVVEVC@AVE?i@?k@?g@?KE[AQ"
+            }, 
+            "mode": "BICYCLE", 
+            "rentedBike": null, 
+            "route": "", 
+            "routeColor": null, 
+            "routeLongName": null, 
+            "routeShortName": null, 
+            "routeTextColor": null, 
+            "startTime": 1341798389000, 
+            "steps": [
+              {
+                "absoluteDirection": "EAST", 
+                "bogusName": false, 
+                "distance": 618.5949018988888, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.99184708146095, 
+                "lon": -90.08325857376963, 
+                "relativeDirection": null, 
+                "stayOn": false, 
+                "streetName": "Florida Ave"
+              }, 
+              {
+                "absoluteDirection": "SOUTH", 
+                "bogusName": false, 
+                "distance": 126.45840743128169, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.991815, 
+                "lon": -90.076888, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Interchange Rdwy"
+              }, 
+              {
+                "absoluteDirection": "SOUTHEAST", 
+                "bogusName": false, 
+                "distance": 2959.030234797908, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.991051, 
+                "lon": -90.076247, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "St Bernard Ave"
+              }, 
+              {
+                "absoluteDirection": "SOUTHWEST", 
+                "bogusName": false, 
+                "distance": 85.58417693029537, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.96732, 
+                "lon": -90.062412, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "North Rampart Street"
+              }, 
+              {
+                "absoluteDirection": "SOUTHEAST", 
+                "bogusName": false, 
+                "distance": 127.41827142892521, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.966719, 
+                "lon": -90.062967, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "Kerlerec St"
+              }, 
+              {
+                "absoluteDirection": "SOUTHWEST", 
+                "bogusName": false, 
+                "distance": 116.75750287207565, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.966011, 
+                "lon": -90.061927, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Burgundy St"
+              }, 
+              {
+                "absoluteDirection": "SOUTHEAST", 
+                "bogusName": false, 
+                "distance": 103.25410679362189, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9651607, 
+                "lon": -90.0625785, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "Esplanade Ave"
+              }, 
+              {
+                "absoluteDirection": "SOUTHWEST", 
+                "bogusName": false, 
+                "distance": 406.7995088505854, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.964577, 
+                "lon": -90.061745, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Dauphine Street"
+              }, 
+              {
+                "absoluteDirection": "SOUTHEAST", 
+                "bogusName": false, 
+                "distance": 453.9589677362606, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9616912, 
+                "lon": -90.0643402, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "St Philip St"
+              }, 
+              {
+                "absoluteDirection": "SOUTHWEST", 
+                "bogusName": false, 
+                "distance": 453.59358875260756, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.959143, 
+                "lon": -90.060659, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Decatur Street"
+              }, 
+              {
+                "absoluteDirection": "SOUTHEAST", 
+                "bogusName": true, 
+                "distance": 286.29607117716495, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9558897, 
+                "lon": -90.0634965, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "service road"
+              }, 
+              {
+                "absoluteDirection": "SOUTHEAST", 
+                "bogusName": false, 
+                "distance": 4.922536905416449, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9535816, 
+                "lon": -90.06381, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "Conti Street"
+              }, 
+              {
+                "absoluteDirection": "SOUTH", 
+                "bogusName": false, 
+                "distance": 223.08206647755668, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.953553, 
+                "lon": -90.063771, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "N Front Blvd"
+              }, 
+              {
+                "absoluteDirection": "SOUTHEAST", 
+                "bogusName": false, 
+                "distance": 60.98310371191225, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9516678, 
+                "lon": -90.064546, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "Iberville Street"
+              }, 
+              {
+                "absoluteDirection": "SOUTH", 
+                "bogusName": false, 
+                "distance": 141.83859765404773, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9513109, 
+                "lon": -90.0640654, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Wells St"
+              }, 
+              {
+                "absoluteDirection": "SOUTH", 
+                "bogusName": false, 
+                "distance": 27.978205085999974, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9500543, 
+                "lon": -90.0642678, 
+                "relativeDirection": "CONTINUE", 
+                "stayOn": false, 
+                "streetName": "Delta Street"
+              }, 
+              {
+                "absoluteDirection": "EAST", 
+                "bogusName": false, 
+                "distance": 89.05120729988741, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9498081, 
+                "lon": -90.0642079, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "Canal Street"
+              }
+            ], 
+            "to": {
+              "arrival": 1341799721000, 
+              "departure": 1341799721000, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.063288,29.9498458]}", 
+              "lat": 29.9498458, 
+              "lon": -90.063288, 
+              "name": "Canal Street", 
+              "orig": null, 
+              "stopCode": null, 
+              "stopId": null, 
+              "zoneId": null
+            }, 
+            "tripId": null, 
+            "tripShortName": null
+          }
+        ], 
+        "startTime": 1341798389000, 
+        "tooSloped": false, 
+        "transfers": -1, 
+        "transitTime": 0, 
+        "waitingTime": 0, 
+        "walkDistance": 6285.601455804438, 
+        "walkTime": 1332
+      }
+    ], 
+    "to": {
+      "arrival": null, 
+      "departure": null, 
+      "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.063288,29.9498458]}", 
+      "lat": 29.9498458, 
+      "lon": -90.063288, 
+      "name": "Canal Street", 
+      "orig": null, 
+      "stopCode": null, 
+      "stopId": null, 
+      "zoneId": null
+    }
+  }, 
+  "requestParameters": {
+    "fromPlace": "29.991776,-90.083256", 
+    "mode": "BICYCLE", 
+    "toPlace": "29.950138,-90.061519"
+  }
+}

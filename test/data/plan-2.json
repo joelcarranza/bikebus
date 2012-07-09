@@ -1,0 +1,269 @@
+{
+  "plan": {
+    "date": 1341798378000, 
+    "from": {
+      "arrival": null, 
+      "departure": null, 
+      "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.109348,29.934984]}", 
+      "lat": 29.934984, 
+      "lon": -90.109348, 
+      "name": "corner of Freret St and Soniat St", 
+      "orig": null, 
+      "stopCode": null, 
+      "stopId": null, 
+      "zoneId": null
+    }, 
+    "itineraries": [
+      {
+        "duration": 1587000, 
+        "elevationGained": 0.0, 
+        "elevationLost": 0.0, 
+        "endTime": 1341799965000, 
+        "fare": null, 
+        "legs": [
+          {
+            "agencyId": null, 
+            "agencyName": null, 
+            "agencyTimeZoneOffset": 0, 
+            "agencyUrl": null, 
+            "alightRule": null, 
+            "boardRule": null, 
+            "bogusNonTransitLeg": false, 
+            "distance": 7688.574656327966, 
+            "duration": 1587000, 
+            "endTime": 1341799965000, 
+            "from": {
+              "arrival": null, 
+              "departure": null, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.10931,29.93499]}", 
+              "lat": 29.93499, 
+              "lon": -90.10931, 
+              "name": "Soniat St", 
+              "orig": null, 
+              "stopCode": null, 
+              "stopId": null, 
+              "zoneId": null
+            }, 
+            "headsign": null, 
+            "interlineWithPreviousLeg": null, 
+            "legGeometry": {
+              "length": 173, 
+              "levels": null, 
+              "points": "utuuDdn~dP_EGaEGwCEg@AwDGcDKiDGQ`CmCc@aAO_Dg@wDq@}Do@sDo@iDq@APm@dEqDs@sDq@yDk@wDg@{D{@WGyCk@qDk@wA[uAaAy@m@sBcA@I?EAESSgCuAaCaBa@WgAu@s@e@WQUOa@W[Sa@UqAg@]Os@g@OM}@u@q@k@WYUSSMiCoBmDuBKEYCSEuAg@oA{@mMsKIIoBmCJR]]QSu@y@SOQO_@Y[WeA}@yAoAeD}CQKkDoCaDsCmDsC][mAgA{AsAkCcCMI{CqCm@i@SQw@u@}CoCw@vA{Be@qAYeBa@WG}AYQCKEUMIIiAgAiAeAqDwDq@q@SS[UoDoBe@SSIOC]@[HMDMJOR_ArA]h@Ub@CFa@z@EHg@t@{AxB]^_Az@IDIBI@I?{@aAs@y@a@]a@UMIcA[{@Uu@McAQ_AGs@AS@QAYIUOc@_@_@e@_@e@[a@QO[S]Se@Oa@Ge@Cm@DmAXWDM?QCMCSIgAk@UOUGa@IwAQwAMaBE]EQGsAu@_Bk@Kc@IwHGsF"
+            }, 
+            "mode": "BICYCLE", 
+            "rentedBike": null, 
+            "route": "", 
+            "routeColor": null, 
+            "routeLongName": null, 
+            "routeShortName": null, 
+            "routeTextColor": null, 
+            "startTime": 1341798378000, 
+            "steps": [
+              {
+                "absoluteDirection": "NORTH", 
+                "bogusName": false, 
+                "distance": 610.2529791781956, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.93499, 
+                "lon": -90.10931, 
+                "relativeDirection": null, 
+                "stayOn": false, 
+                "streetName": "Soniat St"
+              }, 
+              {
+                "absoluteDirection": "WEST", 
+                "bogusName": false, 
+                "distance": 64.38925567455676, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.940473, 
+                "lon": -90.109041, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "Story St"
+              }, 
+              {
+                "absoluteDirection": "NORTH", 
+                "bogusName": false, 
+                "distance": 622.3893091579038, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.940569, 
+                "lon": -90.1097, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Jefferson Ave"
+              }, 
+              {
+                "absoluteDirection": "WEST", 
+                "bogusName": false, 
+                "distance": 107.46222311028231, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9460248, 
+                "lon": -90.1082589, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "S Tonti St"
+              }, 
+              {
+                "absoluteDirection": "NORTH", 
+                "bogusName": false, 
+                "distance": 777.003735794485, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.946265, 
+                "lon": -90.109339, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Octavia St"
+              }, 
+              {
+                "absoluteDirection": "NORTHEAST", 
+                "bogusName": false, 
+                "distance": 169.36241895682167, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.953063, 
+                "lon": -90.107487, 
+                "relativeDirection": "SLIGHTLY_RIGHT", 
+                "stayOn": false, 
+                "streetName": "S Jefferson Davis Pky"
+              }, 
+              {
+                "absoluteDirection": "EAST", 
+                "bogusName": false, 
+                "distance": 1399.0953553564914, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.954365, 
+                "lon": -90.106581, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": true, 
+                "streetName": "S Jefferson Davis Pky"
+              }, 
+              {
+                "absoluteDirection": "SOUTHWEST", 
+                "bogusName": false, 
+                "distance": 753.1061010646213, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.964689, 
+                "lon": -90.0985279, 
+                "relativeDirection": "HARD_LEFT", 
+                "stayOn": true, 
+                "streetName": "S Jefferson Davis Pky"
+              }, 
+              {
+                "absoluteDirection": "NORTHEAST", 
+                "bogusName": false, 
+                "distance": 410.28742440735255, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.969886, 
+                "lon": -90.093911, 
+                "relativeDirection": "CONTINUE", 
+                "stayOn": false, 
+                "streetName": "N Jefferson Davis Pky"
+              }, 
+              {
+                "absoluteDirection": "NORTHEAST", 
+                "bogusName": false, 
+                "distance": 152.05272875299343, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9727681, 
+                "lon": -90.0912519, 
+                "relativeDirection": "CONTINUE", 
+                "stayOn": false, 
+                "streetName": "Hagan Ave"
+              }, 
+              {
+                "absoluteDirection": "NORTHWEST", 
+                "bogusName": false, 
+                "distance": 52.29041702224242, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.973836, 
+                "lon": -90.090266, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "Toulouse St"
+              }, 
+              {
+                "absoluteDirection": "NORTH", 
+                "bogusName": false, 
+                "distance": 2302.9203028895963, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.974115, 
+                "lon": -90.090703, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Moss St"
+              }, 
+              {
+                "absoluteDirection": "EAST", 
+                "bogusName": false, 
+                "distance": 267.96240496242183, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.991757, 
+                "lon": -90.086039, 
+                "relativeDirection": "SLIGHTLY_RIGHT", 
+                "stayOn": false, 
+                "streetName": "Florida Ave"
+              }
+            ], 
+            "to": {
+              "arrival": 1341799965000, 
+              "departure": 1341799965000, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.08325857376963,29.99184708146095]}", 
+              "lat": 29.99184708146095, 
+              "lon": -90.08325857376963, 
+              "name": "Florida Ave", 
+              "orig": null, 
+              "stopCode": null, 
+              "stopId": null, 
+              "zoneId": null
+            }, 
+            "tripId": null, 
+            "tripShortName": null
+          }
+        ], 
+        "startTime": 1341798378000, 
+        "tooSloped": false, 
+        "transfers": -1, 
+        "transitTime": 0, 
+        "waitingTime": 0, 
+        "walkDistance": 7688.574656327966, 
+        "walkTime": 1587
+      }
+    ], 
+    "to": {
+      "arrival": null, 
+      "departure": null, 
+      "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.08325857376963,29.99184708146095]}", 
+      "lat": 29.99184708146095, 
+      "lon": -90.08325857376963, 
+      "name": "Florida Ave", 
+      "orig": null, 
+      "stopCode": null, 
+      "stopId": null, 
+      "zoneId": null
+    }
+  }, 
+  "requestParameters": {
+    "fromPlace": "29.934984,-90.109348", 
+    "maxWalkDistance": "1609", 
+    "mode": "TRANSIT,BICYCLE", 
+    "optimize": "TRIANGLE", 
+    "toPlace": "29.991776,-90.083256", 
+    "transferPenalty": "600", 
+    "triangleSafetyFactor": "1", 
+    "triangleSlopeFactor": "0", 
+    "triangleTimeFactor": "0"
+  }
+}

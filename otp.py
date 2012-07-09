@@ -11,12 +11,24 @@ URL = 'http://50.116.38.181:8080/opentripplanner-api-webapp/ws/'
 
 # documentation http://www.opentripplanner.org/apidoc/rest.plan.html
 
+# distance for biking in meters - 1609/mi
+# not clear if this is per-leg or total
+MAX_BIKE_DISTANCE = 3200
+
+# transfer penalty in seconds
+TRANSFER_PENALTY = 600
+
 MODE_PARAMS = {
     # we can hack this to disallow streetcars here or we can do it in the
     # GTFS feed
-    'ANY':{'mode':'TRANSIT,BICYCLE'},
-    'BUS':{'mode':'TRANSIT,WALK'},
-    'STREETCAR':{'mode':'TRANSIT,WALK'},
+    'ANY':{'mode':'TRANSIT,BICYCLE',
+      'optimize':'TRIANGLE',
+      'triangleTimeFactor':'0',
+      'triangleSlopeFactor':'0',
+      'triangleSafetyFactor':'1',
+      'maxWalkDistance':MAX_BIKE_DISTANCE,'transferPenalty':TRANSFER_PENALTY}, 
+    'BUS':{'mode':'TRANSIT,WALK','transferPenalty':TRANSFER_PENALTY},
+    'STREETCAR':{'mode':'TRANSIT,WALK','transferPenalty':TRANSFER_PENALTY},
     'BIKE':{'mode':'BICYCLE'},
     'WALK':{'mode':'WALK'}
 }
@@ -44,7 +56,8 @@ def step_instructions(step,mode):
     direction = re.sub('_',' ',direction.lower())
     return "%s %s on %s" % (mode.capitalize(),direction,name)
 
-def format_distance(distance):
+def format_distance(distance,short=False):
+  # TODO: short should squeeze where possible
   # distance in meters
   if distance < 1609:
     feet = distance/ 3.2808399
@@ -53,9 +66,13 @@ def format_distance(distance):
     miles = distance/ 1609.344
     return "%.1fmi" % miles
 
-def format_duration(delta):
-  # TODO: support hours/minutes
-  return "%d minutes" % int(delta/60000)
+# TODO: support short 
+def format_duration(delta,short=False):
+  minutes = int(delta/60000)
+  if short:
+    return "%dmin" % minutes
+  else:
+    return "%d minutes" % minutes
 
 # the leading - on %-I not supported on some platforms/versions?
 # TODO: hate that uppercase AM/PM - perhaps would be better to format
@@ -81,7 +98,7 @@ def plan(fromPlace,toPlace,mode,date=None,datemode=None):
     params['arriveBy'] = 'true' 
   if datemode == 'depart':
     params['arriveBy'] = 'false' 
-
+  # TODO: catch errors here and return status code
   r = requests.get(URL+'plan',headers=headers,params=params)
   r.raise_for_status()
   return json.loads(r.text)

@@ -1,0 +1,535 @@
+{
+  "plan": {
+    "date": 1341798400000, 
+    "from": {
+      "arrival": null, 
+      "departure": null, 
+      "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.063288,29.9498458]}", 
+      "lat": 29.9498458, 
+      "lon": -90.063288, 
+      "name": "Canal Street", 
+      "orig": null, 
+      "stopCode": null, 
+      "stopId": null, 
+      "zoneId": null
+    }, 
+    "itineraries": [
+      {
+        "duration": 2018000, 
+        "elevationGained": 0.0, 
+        "elevationLost": 0.0, 
+        "endTime": 1341802008000, 
+        "fare": null, 
+        "legs": [
+          {
+            "agencyId": null, 
+            "agencyName": null, 
+            "agencyTimeZoneOffset": -18000000, 
+            "agencyUrl": null, 
+            "alightRule": null, 
+            "boardRule": null, 
+            "bogusNonTransitLeg": false, 
+            "distance": 89.05120729988741, 
+            "duration": 71000, 
+            "endTime": 1341800061000, 
+            "from": {
+              "arrival": null, 
+              "departure": null, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.063288,29.9498458]}", 
+              "lat": 29.9498458, 
+              "lon": -90.063288, 
+              "name": "Canal Street", 
+              "orig": null, 
+              "stopCode": null, 
+              "stopId": null, 
+              "zoneId": null
+            }, 
+            "headsign": null, 
+            "interlineWithPreviousLeg": null, 
+            "legGeometry": {
+              "length": 7, 
+              "levels": null, 
+              "points": "oqxuDpnudP@PDZ?J?f@?j@?h@"
+            }, 
+            "mode": "WALK", 
+            "rentedBike": null, 
+            "route": "", 
+            "routeColor": null, 
+            "routeLongName": null, 
+            "routeShortName": null, 
+            "routeTextColor": null, 
+            "startTime": 1341799990000, 
+            "steps": [
+              {
+                "absoluteDirection": "WEST", 
+                "bogusName": false, 
+                "distance": 89.05120729988741, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9498458, 
+                "lon": -90.063288, 
+                "relativeDirection": null, 
+                "stayOn": false, 
+                "streetName": "Canal Street"
+              }
+            ], 
+            "to": {
+              "arrival": 1341800062000, 
+              "departure": 1341800062000, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.064303,29.949727]}", 
+              "lat": 29.949727, 
+              "lon": -90.064303, 
+              "name": "Canal at Convention Center Blvd", 
+              "orig": null, 
+              "stopCode": "7625", 
+              "stopId": {
+                "agencyId": "NORTA", 
+                "id": "7625"
+              }, 
+              "zoneId": null
+            }, 
+            "tripId": null, 
+            "tripShortName": null
+          }, 
+          {
+            "agencyId": "NORTA", 
+            "agencyName": "New Orleans RTA", 
+            "agencyTimeZoneOffset": 0, 
+            "agencyUrl": "http://www.norta.com", 
+            "alightRule": null, 
+            "boardRule": null, 
+            "bogusNonTransitLeg": false, 
+            "distance": 5003.351958466727, 
+            "duration": 1126000, 
+            "endTime": 1341801308000, 
+            "from": {
+              "arrival": null, 
+              "departure": null, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.064303,29.949727]}", 
+              "lat": 29.949727, 
+              "lon": -90.064303, 
+              "name": "Canal at Convention Center Blvd", 
+              "orig": null, 
+              "stopCode": "7625", 
+              "stopId": {
+                "agencyId": "NORTA", 
+                "id": "7625"
+              }, 
+              "zoneId": null
+            }, 
+            "headsign": "S. Carrollton Avenue via Poydras Street & Superdome", 
+            "interlineWithPreviousLeg": null, 
+            "intermediateStops": [], 
+            "legGeometry": {
+              "length": 129, 
+              "levels": null, 
+              "points": "iqxuDntudPDKp@E~F?O`BEb@CPGf@Mt@U~AANg@`DCREV?FWjBWtBAFQxA[pBG\\[`COlAG`@q@~EG\\g@nDIl@ANSnAc@`De@jCW~AId@Or@k@~BW`AMf@S|@Md@WfA_@xAs@fCq@pBGTsCvIq@zAGJo@xAGPINOb@GLAFHHNLPRf@^B?d@FVNXLt@j@lBtAjB|AVR`BtAh@^VPNLRPb@Xd@ZNJnA~@TLXT|I`GnA~@f@b@Xd@t@b@RL^V^Zh@`@b@j@lApB^|@JT`AtB~@jBHPxA`DpArCFJ^x@x@fBvAxCJR|BfF\\j@PZP\\vA~EFRbAlDJf@Hf@JjE@RPdFPzEFzCDv@@R@j@NbFLvBLrABJFj@Fz@?dAIz@UnAa@`A]f@g@p@"
+            }, 
+            "mode": "BUS", 
+            "rentedBike": null, 
+            "route": "16", 
+            "routeColor": "692B91", 
+            "routeLongName": "Claiborne", 
+            "routeShortName": "16", 
+            "routeTextColor": "FFFFFF", 
+            "startTime": 1341800182000, 
+            "to": {
+              "arrival": 1341801308000, 
+              "departure": 1341801308000, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.108095,29.940832]}", 
+              "lat": 29.940832, 
+              "lon": -90.108095, 
+              "name": "S. Claiborne at Robert", 
+              "orig": null, 
+              "stopCode": "473", 
+              "stopId": {
+                "agencyId": "NORTA", 
+                "id": "473"
+              }, 
+              "zoneId": null
+            }, 
+            "tripId": "1787393", 
+            "tripShortName": null
+          }, 
+          {
+            "agencyId": null, 
+            "agencyName": null, 
+            "agencyTimeZoneOffset": -18000000, 
+            "agencyUrl": null, 
+            "alightRule": null, 
+            "boardRule": null, 
+            "bogusNonTransitLeg": false, 
+            "distance": 751.0519899241098, 
+            "duration": 579000, 
+            "endTime": 1341802008000, 
+            "from": {
+              "arrival": null, 
+              "departure": null, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.1081596478735,29.940757715176407]}", 
+              "lat": 29.940757715176407, 
+              "lon": -90.1081596478735, 
+              "name": "South Claiborne Avenue", 
+              "orig": null, 
+              "stopCode": null, 
+              "stopId": null, 
+              "zoneId": null
+            }, 
+            "headsign": null, 
+            "interlineWithPreviousLeg": null, 
+            "legGeometry": {
+              "length": 19, 
+              "levels": null, 
+              "points": "uxvuD~f~dPX]LQZZDDB@F@bCFOhBAZ@PDLPTbDJvDFf@@vCD`EF~DF"
+            }, 
+            "mode": "WALK", 
+            "rentedBike": null, 
+            "route": "", 
+            "routeColor": null, 
+            "routeLongName": null, 
+            "routeShortName": null, 
+            "routeTextColor": null, 
+            "startTime": 1341801429000, 
+            "steps": [
+              {
+                "absoluteDirection": "SOUTHEAST", 
+                "bogusName": false, 
+                "distance": 33.228854197397055, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.940757715176407, 
+                "lon": -90.1081596478735, 
+                "relativeDirection": null, 
+                "stayOn": false, 
+                "streetName": "South Claiborne Avenue"
+              }, 
+              {
+                "absoluteDirection": "SOUTHWEST", 
+                "bogusName": false, 
+                "distance": 105.41635369701268, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.940551, 
+                "lon": -90.107911, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Robert St"
+              }, 
+              {
+                "absoluteDirection": "WEST", 
+                "bogusName": false, 
+                "distance": 96.09818379300582, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.939666, 
+                "lon": -90.108141, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Cucullu St"
+              }, 
+              {
+                "absoluteDirection": "SOUTH", 
+                "bogusName": false, 
+                "distance": 516.3085982366941, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.939629, 
+                "lon": -90.109085, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "Soniat St"
+              }
+            ], 
+            "to": {
+              "arrival": 1341802008000, 
+              "departure": 1341802008000, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.109348,29.934984]}", 
+              "lat": 29.934984, 
+              "lon": -90.109348, 
+              "name": "corner of Freret St and Soniat St", 
+              "orig": null, 
+              "stopCode": null, 
+              "stopId": null, 
+              "zoneId": null
+            }, 
+            "tripId": null, 
+            "tripShortName": null
+          }
+        ], 
+        "startTime": 1341799990000, 
+        "tooSloped": false, 
+        "transfers": 0, 
+        "transitTime": 1126, 
+        "waitingTime": 242, 
+        "walkDistance": 840.103197223997, 
+        "walkTime": 650
+      }, 
+      {
+        "duration": 2043000, 
+        "elevationGained": 0.0, 
+        "elevationLost": 0.0, 
+        "endTime": 1341803327000, 
+        "fare": null, 
+        "legs": [
+          {
+            "agencyId": null, 
+            "agencyName": null, 
+            "agencyTimeZoneOffset": -18000000, 
+            "agencyUrl": null, 
+            "alightRule": null, 
+            "boardRule": null, 
+            "bogusNonTransitLeg": false, 
+            "distance": 1075.4122479797525, 
+            "duration": 831000, 
+            "endTime": 1341802115000, 
+            "from": {
+              "arrival": null, 
+              "departure": null, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.063288,29.9498458]}", 
+              "lat": 29.9498458, 
+              "lon": -90.063288, 
+              "name": "Canal Street", 
+              "orig": null, 
+              "stopCode": null, 
+              "stopId": null, 
+              "zoneId": null
+            }, 
+            "headsign": null, 
+            "interlineWithPreviousLeg": null, 
+            "legGeometry": {
+              "length": 20, 
+              "levels": null, 
+              "points": "oqxuDpnudP@PDZ?J?f@?j@?h@}E`JYb@jAX~Br@gAdD_@z@y@pC_@pACF}AlFwAfF}ApFSE"
+            }, 
+            "mode": "WALK", 
+            "rentedBike": null, 
+            "route": "", 
+            "routeColor": null, 
+            "routeLongName": null, 
+            "routeShortName": null, 
+            "routeTextColor": null, 
+            "startTime": 1341801284000, 
+            "steps": [
+              {
+                "absoluteDirection": "WEST", 
+                "bogusName": false, 
+                "distance": 321.5664021540418, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9498458, 
+                "lon": -90.063288, 
+                "relativeDirection": null, 
+                "stayOn": false, 
+                "streetName": "Canal Street"
+              }, 
+              {
+                "absoluteDirection": "SOUTH", 
+                "bogusName": false, 
+                "distance": 119.39525676898117, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9510457, 
+                "lon": -90.0661526, 
+                "relativeDirection": "LEFT", 
+                "stayOn": false, 
+                "streetName": "Tchoupitoulas Street"
+              }, 
+              {
+                "absoluteDirection": "NORTHWEST", 
+                "bogusName": false, 
+                "distance": 623.7897604608364, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9500286, 
+                "lon": -90.0665488, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Gravier Street"
+              }, 
+              {
+                "absoluteDirection": "NORTH", 
+                "bogusName": false, 
+                "distance": 10.660828595893046, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.9523981, 
+                "lon": -90.0724144, 
+                "relativeDirection": "RIGHT", 
+                "stayOn": false, 
+                "streetName": "Baronne Street"
+              }
+            ], 
+            "to": {
+              "arrival": 1341802116000, 
+              "departure": 1341802116000, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.072444,29.952508]}", 
+              "lat": 29.952508, 
+              "lon": -90.072444, 
+              "name": "Baronne at Gravier", 
+              "orig": null, 
+              "stopCode": "21", 
+              "stopId": {
+                "agencyId": "NORTA", 
+                "id": "21"
+              }, 
+              "zoneId": null
+            }, 
+            "tripId": null, 
+            "tripShortName": null
+          }, 
+          {
+            "agencyId": "NORTA", 
+            "agencyName": "New Orleans RTA", 
+            "agencyTimeZoneOffset": 0, 
+            "agencyUrl": "http://www.norta.com", 
+            "alightRule": null, 
+            "boardRule": null, 
+            "bogusNonTransitLeg": false, 
+            "distance": 4840.365377137828, 
+            "duration": 964000, 
+            "endTime": 1341803200000, 
+            "from": {
+              "arrival": null, 
+              "departure": null, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.072444,29.952508]}", 
+              "lat": 29.952508, 
+              "lon": -90.072444, 
+              "name": "Baronne at Gravier", 
+              "orig": null, 
+              "stopCode": "21", 
+              "stopId": {
+                "agencyId": "NORTA", 
+                "id": "21"
+              }, 
+              "zoneId": null
+            }, 
+            "headsign": "Broadway via Loyola & Tulane Universities", 
+            "interlineWithPreviousLeg": null, 
+            "intermediateStops": [], 
+            "legGeometry": {
+              "length": 109, 
+              "levels": null, 
+              "points": "_byuD`gwdPNBbCj@jCf@tCj@RD`@FdFfAbDp@XFlGvARD|GzAb@J^RvCrBZRNJXRNJJFTPLFPNzA`AzCnBNJhChBzBzAPJpClB~B|AJFfCdBh@f@mBxBWXWRGJQXdC|ALHh@X`@l@`AbBpBnDHPqBdBQLcCrBmB~AEBSN_@XX~@F~@?x@Gr@Gd@W~@Qf@Gf@Ep@BV@RDf@D^Lf@f@hAXn@t@dBHL~@pBXl@pAnCHPzAdD~@lBtA|CPZJPVn@Vx@bA~DVVcDrAFRT~@l@dCDTV|BVvBBVZxCH~CNfE@\\NvEPtE?TBf@PdFNfE?VP`FJfC@XE~EEhD"
+            }, 
+            "mode": "BUS", 
+            "rentedBike": null, 
+            "route": "15", 
+            "routeColor": "D6ED6B", 
+            "routeLongName": "Freret", 
+            "routeShortName": "15", 
+            "routeTextColor": "000000", 
+            "startTime": 1341802236000, 
+            "to": {
+              "arrival": 1341803200000, 
+              "departure": 1341803200000, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.109229,29.935038]}", 
+              "lat": 29.935038, 
+              "lon": -90.109229, 
+              "name": "Freret at Soniat", 
+              "orig": null, 
+              "stopCode": "398", 
+              "stopId": {
+                "agencyId": "NORTA", 
+                "id": "398"
+              }, 
+              "zoneId": null
+            }, 
+            "tripId": "1787247", 
+            "tripShortName": null
+          }, 
+          {
+            "agencyId": null, 
+            "agencyName": null, 
+            "agencyTimeZoneOffset": -18000000, 
+            "agencyUrl": null, 
+            "alightRule": null, 
+            "boardRule": null, 
+            "bogusNonTransitLeg": false, 
+            "distance": 7.60958567749212, 
+            "duration": 6000, 
+            "endTime": 1341803327000, 
+            "from": {
+              "arrival": null, 
+              "departure": null, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.10923112007252,29.934986737733645]}", 
+              "lat": 29.934986737733645, 
+              "lon": -90.10923112007252, 
+              "name": "Freret St", 
+              "orig": null, 
+              "stopCode": null, 
+              "stopId": null, 
+              "zoneId": null
+            }, 
+            "headsign": null, 
+            "interlineWithPreviousLeg": null, 
+            "legGeometry": {
+              "length": 2, 
+              "levels": null, 
+              "points": "stuuDvm~dPAL"
+            }, 
+            "mode": "WALK", 
+            "rentedBike": null, 
+            "route": "", 
+            "routeColor": null, 
+            "routeLongName": null, 
+            "routeShortName": null, 
+            "routeTextColor": null, 
+            "startTime": 1341803321000, 
+            "steps": [
+              {
+                "absoluteDirection": "WEST", 
+                "bogusName": false, 
+                "distance": 7.60958567749212, 
+                "elevation": "", 
+                "exit": null, 
+                "lat": 29.934986737733645, 
+                "lon": -90.10923112007252, 
+                "relativeDirection": null, 
+                "stayOn": false, 
+                "streetName": "Freret St"
+              }
+            ], 
+            "to": {
+              "arrival": 1341803327000, 
+              "departure": 1341803327000, 
+              "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.109348,29.934984]}", 
+              "lat": 29.934984, 
+              "lon": -90.109348, 
+              "name": "corner of Freret St and Soniat St", 
+              "orig": null, 
+              "stopCode": null, 
+              "stopId": null, 
+              "zoneId": null
+            }, 
+            "tripId": null, 
+            "tripShortName": null
+          }
+        ], 
+        "startTime": 1341801284000, 
+        "tooSloped": false, 
+        "transfers": 0, 
+        "transitTime": 964, 
+        "waitingTime": 242, 
+        "walkDistance": 1083.0218336572445, 
+        "walkTime": 837
+      }
+    ], 
+    "to": {
+      "arrival": null, 
+      "departure": null, 
+      "geometry": "{\"type\": \"Point\", \"coordinates\": [-90.109348,29.934984]}", 
+      "lat": 29.934984, 
+      "lon": -90.109348, 
+      "name": "corner of Freret St and Soniat St", 
+      "orig": null, 
+      "stopCode": null, 
+      "stopId": null, 
+      "zoneId": null
+    }
+  }, 
+  "requestParameters": {
+    "fromPlace": "29.950138,-90.061519", 
+    "mode": "TRANSIT,WALK", 
+    "toPlace": "29.934984,-90.109348", 
+    "transferPenalty": "600"
+  }
+}

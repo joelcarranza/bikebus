@@ -1,0 +1,20 @@
+{
+  "error": {
+    "id": 409, 
+    "missing": null, 
+    "msg": "Origin is within a trivial distance of the destination.", 
+    "noPath": true
+  }, 
+  "plan": null, 
+  "requestParameters": {
+    "fromPlace": "29.950138,-90.061519", 
+    "maxWalkDistance": "1609", 
+    "mode": "TRANSIT,BICYCLE", 
+    "optimize": "TRIANGLE", 
+    "toPlace": "29.950138,-90.061519", 
+    "transferPenalty": "600", 
+    "triangleSafetyFactor": "1", 
+    "triangleSlopeFactor": "0", 
+    "triangleTimeFactor": "0"
+  }
+}
