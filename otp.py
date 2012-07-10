@@ -7,7 +7,7 @@ import time
 
 # provides an interface to the OpenTripPlanner web service
 
-URL = 'http://50.116.38.181:8080/opentripplanner-api-webapp/ws/'
+URL = 'http://ws.bikebusnola.com:8080/opentripplanner-api-webapp/ws/'
 
 # documentation http://www.opentripplanner.org/apidoc/rest.plan.html
 
