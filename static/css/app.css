@@ -1873,7 +1873,7 @@ header h1 img {
   padding-bottom: 6px;
 }
 form {
-  width: 310px;
+  width: 300px;
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -1881,19 +1881,19 @@ form .form-row label {
   width: 50px;
 }
 form .form-row input {
-  width: 250px;
+  width: 240px;
 }
 form .form-row-mode input {
   width: 100px;
 }
 form .form-row-mode select {
-  width: 200px;
+  width: 190px;
 }
 form .form-row-time select {
   width: 100px;
 }
 form .form-row-time input {
-  width: 200px;
+  width: 190px;
 }
 form label {
   display: inline-block;
