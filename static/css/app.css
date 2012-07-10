@@ -1864,8 +1864,12 @@ header {
   color: #FFFFFF;
 }
 header h1 {
-  width: 300px;
+  font-size: 28px;
+  width: 320px;
   margin: 0px auto;
+}
+header h1 img {
+  padding-bottom: 6px;
 }
 .container {
   margin-left: 1em;
