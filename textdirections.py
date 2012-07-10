@@ -103,7 +103,10 @@ def has_transit_leg(itin):
 
 def plan_instructions(doc):
   if 'error' in doc:
-    return message(doc['error']['msg'])
+    # abbreviate to kill parantheticals
+    # one error is something like:
+    # Trip is not possible.  Your start or end point might not be safely accessible .
+    return message(abbreviate(doc['error']['msg']))
   elif 'plan' in doc:
     plan = doc['plan']
     modes = doc['requestParameters']['mode'].split(',')
@@ -190,6 +193,10 @@ def normalize(text):
   return re.sub(r'\s+',' ',text).strip()
 
 def message(text):
+  # this is just to limit any messages that might come from unexpected places
+  # like say the error message returned by OTP
+  if len(text) > 160:
+    text = text[0:157]+'...'
   return ("MSG",[text],'')
 
 def stop_info(stopcode):
