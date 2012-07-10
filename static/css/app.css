@@ -1864,6 +1864,7 @@ header {
   color: #FFFFFF;
 }
 header h1 {
+  text-align: center;
   font-size: 28px;
   width: 320px;
   margin: 0px auto;
