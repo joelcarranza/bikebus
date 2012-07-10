@@ -32,36 +32,39 @@
 {% block content %}
 
 <div id="prompt" {%if result %}style="display:none"{%endif%}>
-    <form class="form-horizontal" method="GET">
+    <form class="form-inline" method="GET">
       <fieldset>
-          <div class="control-group">
-            <label class="control-label" for="input01">Mode</label>
-            <div class="controls">
+          <div class="form-row-mode">
+            <label for="mode" class="wide">Directions For</label>
               <select name="mode">
-                <option value="ANY" {% if mode=='ANY' %}SELECTED{% endif %}>Bike/Bus</option>
-                <option value="BUS" {% if mode=='BUS' %}SELECTED{% endif %}>Walk/Bus</option>
+                <option value="ANY" {% if mode=='ANY' %}SELECTED{% endif %}>Bike and Bus</option>
+                <option value="BUS" {% if mode=='BUS' %}SELECTED{% endif %}>Bus and Streetcar</option>
                 <option value="BIKE" {% if mode=='BIKE' %}SELECTED{% endif %}>Bike</option>
-                <option value="WALK" {% if mode=='WALK' %}SELECTED{% endif %}>Walk</option>
+                <option value="WALK" {% if mode=='WALK' %}SELECTED{% endif %}>Walking</option>
               </select>
-            </div>
           </div>
 
-          <div class="control-group">
-            <label class="control-label" for="input01">From</label>
-            <div class="controls">
-              <input type="text" class="input-large" name="from" value="{{from}}"> 
-            </div>
+          <div class="form-row">
+            <label for="from">From</label>
+            <input type="text" name="from" value="{{from}}"> 
           </div>
         
-          <div class="control-group">
-            <label class="control-label" for="input01">To</label>
-            <div class="controls">
-              <input type="text" class="input-large" name="to" value="{{to}}">
-            </div>
+          <div class="form-row">
+            <label for="to">To</label>
+            <input type="text" name="to" value="{{to}}">
+          </div>
+
+          <div class="form-row-time">
+            <select name="time-mode" class="wide">
+              <option value="now">Leave Now</option>
+              <option value="depart">Leave At</option>
+              <option value="arrive">Arrive At</option>
+            </select>
+            <input type="time" class="input-large" name="time" value="{{time}}">
           </div>
           
           <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Go</button>
+            <button type="submit" class="btn btn-primary">Start</button>
           </div>
       </fieldset>
     </form>
@@ -129,7 +132,6 @@
           <li>Arrives at {{leg.to.name}} - Stop #{{leg.to.stopCode}} at {{otp.format_date(leg.to.arrival)}}</li>
           {% endif %}
           </ol>
-          {# TODO: we could do only a couple decimal places for lat/lon here #}
           {% set dirflags = {'BUS':'r','TRAM':'r','WALK':'w','BICYCLE':'b'} %}
           {# See: http://mapki.com/wiki/Google_Map_Parameters  #}
           <a href="http://maps.google.com?saddr={{ll(leg.from)}}&daddr={{ll(leg.to)}}&dirflg={{dirflags[leg.mode]}}">

@@ -22,6 +22,46 @@ header {
   }
 }
 
+form {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  .form-row {
+    label {
+      width:50px;
+    }
+    input {
+      width:250px;
+    }
+  }
+  .form-row-mode {
+    input {
+      width:100px;
+    }
+    select {
+      width:200px;
+    }
+  }
+  .form-row-time {
+    select {
+      width:100px;
+    }
+    input {
+      width:200px;
+    }
+  }
+  label {
+    display: inline-block;
+  }
+  input,select {
+    display:inline-block;
+  }
+}
+
+.form-row,.form-row-mode,.form-row-time {
+  margin-bottom : @baselineheight / 4;
+}
+
+
 .container {
   margin-left: 1em;
   margin-right:1em;

@@ -1872,6 +1872,40 @@ header h1 {
 header h1 img {
   padding-bottom: 6px;
 }
+form {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+form .form-row label {
+  width: 50px;
+}
+form .form-row input {
+  width: 250px;
+}
+form .form-row-mode input {
+  width: 100px;
+}
+form .form-row-mode select {
+  width: 200px;
+}
+form .form-row-time select {
+  width: 100px;
+}
+form .form-row-time input {
+  width: 200px;
+}
+form label {
+  display: inline-block;
+}
+form input,
+form select {
+  display: inline-block;
+}
+.form-row,
+.form-row-mode,
+.form-row-time {
+  margin-bottom: 0.375em;
+}
 .container {
   margin-left: 1em;
   margin-right: 1em;
