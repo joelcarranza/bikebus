@@ -71,6 +71,16 @@ def step_instructions(step,mode):
     direction = re.sub('_',' ',direction.capitalize())
     return "%s on %s" % (direction,name)
 
+def busleg_details(leg):
+  legtext = []
+  start = leg['startTime']
+  end = leg['endTime']
+  legtext.append("%s-%s" % (leg['routeShortName'],leg['routeLongName']))
+  legtext.append("Depart:%s@%s" % (leg['headsign'],otp.format_date(start)))
+  legtext.append("Arrive:%s@%s" % (leg['to']['name'],otp.format_date(end)))
+  legtext.append(format_duration(leg))
+  return "\n".join(legtext)
+
 def leg_details(leg):
   legtext = []
 
@@ -145,7 +155,7 @@ def plan_instructions(doc):
           ts = leg['startTime']
           suffix = "@%s %s" % (otp.format_date(ts),format_duration(leg))
           # TODO
-          details[n] = "STOP %s" % leg['from']['stopCode']
+          details[n] = sms_chunk(busleg_details(leg))
           # unlikely this is the only leg but if it is then we should provide details
 
         prefix = ''
