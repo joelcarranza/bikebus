@@ -15,11 +15,12 @@ from web.contrib.template import render_jinja
 from geocoder import geocode
 import re
 import otp
-from textdirections import handle_text
 import xml.etree.ElementTree as ET
 import geocoder
+from datetime import datetime
 import StringIO
 import json
+import textdirections
 
 render = render_jinja(
         os.path.join(root_dir,'templates'),   # Set template directory.
@@ -42,7 +43,7 @@ urls = (
 class app:
   def GET(self):
     if 'mode' not in web.input():
-      return render.app()
+      return render.app(timemode='now',time=datetime.today().strftime("%H:%M"))
 
     tvars = dict(web.input())
     tvars['error'] = None
@@ -50,7 +51,7 @@ class app:
     fromplace = getattr(web.input(),'from')
     toplace = web.input().to
     if not fromplace or not toplace:
-      tvars['error'] = 'Please enter a From and To address'
+      tvars['error'] = 'Please enter an address or landmark for From and To'
       return render.app(**tvars)
 
     from_result,fromgeo = geocoder.geocode(fromplace)
@@ -65,7 +66,15 @@ class app:
       return render.app(**tvars)
     tvars['togeo'] = togeo
 
-    tvars['result'] = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode)
+    timemode = web.input().get('timemode')
+    if timemode == 'now':
+      tvars['result'] = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode)
+    else:
+      time = datetime.strptime(web.input().time,"%H:%M")
+      date = datetime.today().replace(hour=time.hour,minute=time.minute)
+      print "Planning %s %s" % (timemode,date)
+      tvars['result'] = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode,date,timemode)
+
     #result = json.load(open('plan.json'))
     return render.app(**tvars)
 
@@ -73,7 +82,7 @@ class sms:
   def POST(self):
     # https://www.twilio.com/docs/api/twiml/sms/twilio_request
     body = web.input().Body 
-    result,message,cookies = handle_text(body,web.cookies().get('bikebus'))
+    result,message,cookies = textdirections.handle_text(body,web.cookies().get('bikebus'))
     if cookies is not None:
       web.setcookie('bikebus',cookies)
     else:
@@ -92,14 +101,14 @@ class sms:
 class sms_debug:
   def POST(self):
     q = web.input().q
-    result,message,cookies = handle_text(q,web.cookies().get('bikebus'))
+    result,message,cookies = textdirections.handle_text(q,web.cookies().get('bikebus'))
     if cookies is not None:
       web.setcookie('bikebus',cookies)
     else:
       web.setcookie('bikebus',web.cookies().get('bikebus'))
-    return render.sms(question=q,message=message)
+    return render.sms(question=q,message=message,help=[textdirections.WELCOME_TEXT,textdirections.HELP_TEXT1,textdirections.HELP_TEXT2])
   def GET(self):
-    return render.sms(qestion='',message=[])
+    return render.sms(qestion='',message=[],help=[textdirections.WELCOME_TEXT,textdirections.HELP_TEXT1,textdirections.HELP_TEXT2])
 
 if __name__ == '__main__':
   web.application(urls,globals()).run()

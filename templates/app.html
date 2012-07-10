@@ -4,14 +4,31 @@
   {{'%.4f'|format(pt.lat)}},{{'%.4f'|format(pt.lon)}}
 {%- endmacro %}
 
+{% macro option(var,value,label) %}
+<option value="{{value}}" {% if var==value %}SELECTED{% endif %}>{{label}}</option>
+{%- endmacro %}
+
 
 {% block head %}
   {# TODO: include direction FROM to TO here? #}
-  <title>Bike Bus</title>
+  <title>Bike Bus New Orleans
+    {% if result %}
+    - Directions from {{fromgeo[2]}} to {{togeo[2]}}
+    {% endif %}
+  </title>
   <link rel="stylesheet" href="static/css/app.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>
     
+    function updateTimeField() {
+      if($('#timemode').val() == 'now') {
+        $('#time').hide();
+      }
+      else {
+        $('#time').show();
+      }
+    }
+
  $(document).ready(function() {
    if($('.details').length > 1) {
      $('.details').hide();
@@ -23,6 +40,10 @@
      $("#prompt").show()
      event.preventDefault();
    })
+   $("#timemode").change(function() {
+      updateTimeField();
+   })
+   updateTimeField()
  });
 
 
@@ -37,30 +58,30 @@
           <div class="form-row-mode">
             <label for="mode" class="wide">Directions For</label>
               <select name="mode">
-                <option value="ANY" {% if mode=='ANY' %}SELECTED{% endif %}>Bike and Bus</option>
-                <option value="BUS" {% if mode=='BUS' %}SELECTED{% endif %}>Bus and Streetcar</option>
-                <option value="BIKE" {% if mode=='BIKE' %}SELECTED{% endif %}>Bike</option>
-                <option value="WALK" {% if mode=='WALK' %}SELECTED{% endif %}>Walking</option>
+                {{option(mode,'ANY','Bike and Bus')}}
+                {{option(mode,'BUS','Bus and Streetcar')}}
+                {{option(mode,'BIKE','Bike')}}
+                {{option(mode,'WALK','Walking')}}
               </select>
           </div>
 
           <div class="form-row">
             <label for="from">From</label>
-            <input type="text" name="from" value="{{from}}"> 
+            <input type="text" name="from" value="{{from}}" {% if not from %}autofocus{%endif%} placeholder="Address or Landmark"> 
           </div>
         
           <div class="form-row">
             <label for="to">To</label>
-            <input type="text" name="to" value="{{to}}">
+            <input type="text" name="to" value="{{to}}" placeholder="Address or Landmark"> 
           </div>
 
           <div class="form-row-time">
-            <select name="time-mode" class="wide">
-              <option value="now">Leave Now</option>
-              <option value="depart">Leave At</option>
-              <option value="arrive">Arrive At</option>
+            <select id="timemode" name="timemode" class="wide">
+              {{option(timemode,'now','Leave Now')}}
+              {{option(timemode,'depart','Leave At')}}
+              {{option(timemode,'arrive','Arrive At')}}
             </select>
-            <input type="time" class="input-large" name="time" value="{{time}}">
+            <input id="time" type="time" class="input-large" name="time" value="{{time}}">
           </div>
           
           <div class="form-actions">
@@ -134,7 +155,7 @@
           </ol>
           {% set dirflags = {'BUS':'r','TRAM':'r','WALK':'w','BICYCLE':'b'} %}
           {# See: http://mapki.com/wiki/Google_Map_Parameters  #}
-          <a href="http://maps.google.com?saddr={{ll(leg.from)}}&daddr={{ll(leg.to)}}&dirflg={{dirflags[leg.mode]}}">
+          <a href="http://maps.google.com?saddr={{ll(leg.from)}}&daddr={{ll(leg.to)}}&dirflg={{dirflags[leg.mode]}}" class="maplink">
             <img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:green|{{ll(leg.from)}}&markers={{ll(leg.to)}}&size=320x240&path=weight:5%7Ccolor:red%7Cenc:{{leg.legGeometry.points}}&sensor=false"></a>
           </div>
           <hr>

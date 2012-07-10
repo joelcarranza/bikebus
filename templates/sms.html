@@ -4,16 +4,10 @@
 <form method="POST">
   <label>SMS Debug Console</label>
   <textarea  class="span5" name="q" rows="5" placeholder="Type something…">{{question}}</textarea>
-  <p>
-    <b>Examples</b>
-    <ul>
-      <li>Audubon Park to Superdome
-      <li>directions from Audobon Park to Superdome by bike
-      <li>bus directions  from Audubon  Park to Superdome
-      <li>Audubon Park to Superdome by bus at 3:40
-   </ul>
-  </p>
   <button type="submit" class="btn btn-primary">Go</button>
+  {% for helpstr in help %}
+   <p><pre>{{helpstr}}</pre></p>
+  {% endfor %}
 </form>
 
 

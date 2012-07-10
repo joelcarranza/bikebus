@@ -74,6 +74,13 @@ class TextDirectionsTest(unittest.TestCase):
     for pattern,action in textdirections.ACTIONS:
       self.assertIsNotNone(getattr(textdirections,action))
 
+  def test_welcome_action(self):
+    (code,messages,cookies) = textdirections.handle_text('')
+    self.assertEqual(code,'MSG')
+    for m in messages:
+      self.assertTrue(len(m)<=160)
+    self.assertEqual(len(messages),1)
+
   def test_help_action(self):
     (code,messages,cookies) = textdirections.handle_text('help')
     self.assertEqual(code,'MSG')

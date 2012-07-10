@@ -46,8 +46,31 @@ ACTIONS = (
     ,'directions2')
 )
 
-HELP_TEXT = 'Try texting: <start> TO <finish> for directions'
-WELCOME_TEXT = 'This is an experimental bus/bike trip planner service'
+WELCOME_TEXT = '''
+Bikebusnola.com - New Orleans transit and bike directions via text msg
+TEXT with msg
+  START to FINISH
+To get bike+bus directions
+  HELP
+For more options
+'''.strip()
+
+HELP_TEXT1 = '''
+To get bike+bus directions from A to B text:
+  A to B
+Use addresses or well known landmarks. 
+Results may include steps - 1,2,3... Text step # for more info
+'''.strip()
+
+HELP_TEXT2 = '''
+To change travel mode:
+  A to B by MODE
+MODE may be BIKE BUS or WALKING
+To get directions for a certain time:
+  A to B arrive at TIME
+  A to B depart at TIME
+'''.strip()
+
 UNKNOWN_COMMAND_TEXT = "Sorry I didn't understand that. Text HELP for some tips on using this service"
 
 def abbreviate(name):
@@ -204,7 +227,7 @@ def stop_info(stopcode):
   return message("NOT YET IMPLEMENTED - stop %s" % stopcode)
 
 def help():
-  return message(HELP_TEXT)
+  return ('OK',[HELP_TEXT1,HELP_TEXT2],'')
 
 def wrap(text,n=160):
   lines = []
