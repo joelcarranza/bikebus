@@ -76,8 +76,8 @@ def busleg_details(leg):
   start = leg['startTime']
   end = leg['endTime']
   legtext.append("%s-%s" % (leg['routeShortName'],leg['routeLongName']))
-  legtext.append("Depart:%s@%s" % (leg['headsign'],otp.format_date(start)))
-  legtext.append("Arrive:%s@%s" % (leg['to']['name'],otp.format_date(end)))
+  legtext.append("Depart stop #%s %s@%s" % (leg['from']['stopCode'],abbreviate(leg['headsign']),otp.format_date(start)))
+  legtext.append("Arrive stop #%s %s@%s" % (leg['to']['stopCode'],abbreviate(leg['to']['name']),otp.format_date(end)))
   legtext.append(format_duration(leg))
   return "\n".join(legtext)
 
