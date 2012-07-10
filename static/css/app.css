@@ -1873,6 +1873,7 @@ header h1 img {
   padding-bottom: 6px;
 }
 form {
+  width: 310px;
   margin-top: 1em;
   margin-bottom: 1em;
 }
