@@ -106,7 +106,7 @@
         <ul class="legs">
         {% for leg in itinerary.legs %}
           <li class="leg">
-          
+          <hr>
           <div class="leg-header">
           <div class="sign">
             <img src="static/img/{{leg.mode}}.png" width="32" height="24">  
@@ -160,7 +160,6 @@
           <a href="http://maps.google.com?saddr={{ll(leg.from)}}&daddr={{ll(leg.to)}}&dirflg={{dirflags[leg.mode]}}" class="maplink">
             <img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:green|{{ll(leg.from)}}&markers={{ll(leg.to)}}&size=320x240&path=weight:5%7Ccolor:red%7Cenc:{{leg.legGeometry.points}}&sensor=false"></a>
           </div>
-          <hr>
           </li>
         {% endfor %}
       </ul>
