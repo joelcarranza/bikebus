@@ -21,6 +21,7 @@ from datetime import datetime
 import StringIO
 import json
 import textdirections
+import dateparser
 
 render = render_jinja(
         os.path.join(root_dir,'templates'),   # Set template directory.
@@ -70,10 +71,13 @@ class app:
     if timemode == 'now':
       tvars['result'] = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode)
     else:
-      time = datetime.strptime(web.input().time,"%H:%M")
-      date = datetime.today().replace(hour=time.hour,minute=time.minute)
-      print "Planning %s %s" % (timemode,date)
-      tvars['result'] = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode,date,timemode)
+      try:
+        time = dateparser.parse_time(web.input().time)
+      except ValueError:
+        tvars['error'] = "Invalid time format"
+        return render.app(**tvars)
+
+      tvars['result'] = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode,time,timemode)
 
     #result = json.load(open('plan.json'))
     return render.app(**tvars)

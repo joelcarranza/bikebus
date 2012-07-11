@@ -16,45 +16,6 @@ class TextDirectionsTest(unittest.TestCase):
     for line in results:
       self.assertTrue(len(line) <= 25)
 
-  def test_date_parse(self):
-    date = datetime.datetime(1980,8,11,14,40)
-    d1 = textdirections.parse_natural_date('1 hr',date=date)
-    self.assertIsNotNone(d1)
-    self.assertTrue(d1>date)
-    print d1
-    d1 = textdirections.parse_natural_date('20 min',date=date)
-    self.assertIsNotNone(d1)
-    self.assertTrue(d1>date)
-    print d1
-    d1 = textdirections.parse_natural_date('8a',date=date)
-    self.assertIsNotNone(d1)
-    self.assertTrue(d1>date)
-    print d1
-    d1 = textdirections.parse_natural_date('8:30',date=date)
-    self.assertIsNotNone(d1)
-    self.assertTrue(d1>date)
-    print d1
-    d1 = textdirections.parse_natural_date('2:42',date=date)
-    self.assertIsNotNone(d1)
-    self.assertTrue(d1>date)
-    print d1
-    d1 = textdirections.parse_natural_date('2p',date=date)
-    self.assertIsNotNone(d1)
-    self.assertTrue(d1>date)
-    print d1
-    d1 = textdirections.parse_natural_date('12p',date=date)
-    self.assertIsNotNone(d1)
-    self.assertTrue(d1>date)
-    print d1
-    d1 = textdirections.parse_natural_date('12a',date=date)
-    self.assertIsNotNone(d1)
-    self.assertTrue(d1>date)
-    print d1
-    d1 = textdirections.parse_natural_date('1210',date=date)
-    self.assertIsNotNone(d1)
-    self.assertTrue(d1>date)
-    print d1
-
   def test_match_action(self):
     func,match = textdirections.match_action('help')
     self.assertEqual(func,'help')
