@@ -69,7 +69,7 @@ class app:
 
     timemode = web.input().get('timemode')
     if timemode == 'now':
-      tvars['result'] = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode)
+      result = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode)
     else:
       try:
         time = dateparser.parse_time(web.input().time)
@@ -77,9 +77,12 @@ class app:
         tvars['error'] = "Invalid time format"
         return render.app(**tvars)
 
-      tvars['result'] = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode,time,timemode)
-
-    #result = json.load(open('plan.json'))
+      result = otp.plan(fromgeo[0:2],togeo[0:2],web.input().mode,time,timemode)
+    if 'plan' in result:
+      tvars['result'] = result
+    else:
+      # no itinerary found - rare but possible
+      tvars['error'] = result['error']['msg']
     return render.app(**tvars)
 
 class sms:
