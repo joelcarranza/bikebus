@@ -11,7 +11,7 @@ This code was written for the [Good Idea For New Orleans][good] project, with th
 
 The webapp is available at:
 
-	http://stillthedudeabides.com/bikebus/
+	http://bikebusnola.com/
 
 It provides a mobile-centric interface for trip planning. It's primary goal is speed, ease-of-use, and broad device support. The webapp uses [Google's static maps][google-static-maps] for displaying locations, with external links to fully interactive maps. 
 
@@ -19,7 +19,7 @@ It provides a mobile-centric interface for trip planning. It's primary goal is s
 
 # SMS 
 
-A user can ask for directions via text message by texting XXX-XXXX (TODO). An example of possible text message commands are
+A user can ask for directions via text message by texting (504) 322-4900. An example of possible text message commands are
 
 	Audubon Park to Superdome
 	directions from Audobon Park to Superdome by bike 
@@ -30,7 +30,7 @@ Texting HELP to the service provides some brief instructions.
 
 A web interface to SMS, which allows you to emulate the sending and receiving of text messages without actually using a phone, is available at:
 
-	http://stillthedudeabides.com/bikebus/sms-test
+	http://bikebusnola.com/sms-test
 
 # Technical Bits
 
