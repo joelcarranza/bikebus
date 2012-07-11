@@ -37,7 +37,8 @@
      $('.details',this.parentNode).toggle();
    });
    $("#edit-link").click(function(event) {
-     $("#prompt").show()
+     $("#prompt").show();
+     $("#result-head").hide();
      event.preventDefault();
    })
    $("#timemode").change(function() {
@@ -95,9 +96,10 @@
     {% if result %}
       <div class="directions">
       {% for itinerary in result.plan.itineraries[0:1] %}
-      <h2 class="route-title">Directions from {{fromgeo[2]}} to {{togeo[2]}}
-      </h2>
-        <a href="#" id="edit-link">Edit</a>
+        <div id="result-head">
+        <h2 class="route-title">Directions from {{fromgeo[2]}} to {{togeo[2]}}</h2>
+        <a href="#" id="edit-link">Change</a>
+        </div>
         <div class="subtitle">
           Estimated time: {{otp.format_duration(itinerary.endTime-itinerary.startTime)}}
         </div>

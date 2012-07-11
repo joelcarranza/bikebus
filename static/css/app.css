@@ -1932,14 +1932,22 @@ ol {
 }
 .legs {
   margin-left: 0em;
+  margin-bottom: 0.5em;
 }
 li.leg {
   list-style-type: none;
   margin-bottom: 0.5em;
-  padding-bottom: 0.5em;
+}
+h2.route-title {
+  margin-right: 6px;
+  display: inline;
+  margin-bottom: 0px;
 }
 hr {
   clear: both;
+  margin-top: 0.375em;
+  margin-bottom: 0.375em;
+  border-top: 1px solid #dcdcdc;
 }
 .distance {
   color: #808080;
