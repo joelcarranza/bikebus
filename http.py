@@ -38,7 +38,9 @@ render = render_jinja(
 urls = (
   '/', 'app',
   '/sms-test', 'sms_debug',
-  '/sms','sms'
+  '/sms','sms',
+  '/smshelp','smshelp',
+  '/about','about',
 )
 
 class app:
@@ -104,6 +106,14 @@ class sms:
     output = StringIO.StringIO()
     tree.write(output,encoding="UTF-8",xml_declaration=True)
     return output.getvalue()
+
+class smshelp:
+  def GET(self):
+    return render.smshelp()
+
+class about:
+  def GET(self):
+    return render.about()
 
 class sms_debug:
   def POST(self):

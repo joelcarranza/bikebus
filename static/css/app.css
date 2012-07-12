@@ -341,18 +341,18 @@ sub {
 /* Colour =================================================== */
 a {
   text-decoration: none;
-  color: #013568;
+  color: #39b54a;
 }
 a:visited {
-  color: #000203;
+  color: #21672a;
 }
 a:hover {
   text-decoration: underline;
-  color: #011b35;
+  color: #2d8e3a;
 }
 a:focus {
   outline: thin dotted;
-  color: #000000;
+  color: #14411a;
 }
 a:hover,
 a:active {
