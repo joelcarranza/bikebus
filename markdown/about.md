@@ -1,5 +1,3 @@
-# BikeBusNOLA.com
-
 BikeBus NOLA is a free service for mobile phones which demonstrates how you can
 extend your bike ride through the city of New Orleans by making use of the
 public transit system. It provides step by step directions on how to get
@@ -16,7 +14,7 @@ page.
 [sms]:/smshelp
 [root]:/
 
-## About
+## Credits
 
 This website was created by volunteers as part of the [Good Idea For New
 Orleans][good] project, in partnership with [BikeEasy][bikeeasy] and [Transport
