@@ -1985,6 +1985,29 @@ ol.steps {
 .subtitle {
   color: #808080;
 }
+.phone {
+  font-weight: bold;
+  font-size: 150%;
+  margin-bottom: 1.5em;
+}
+.placeholder {
+  font-weight: normal;
+}
+.sms {
+  font-size: 12pt;
+  font-family: monospace;
+  font-weight: bolder;
+}
+div.sms {
+  border: 1px solid #39b54a;
+  padding: 0.5em;
+  background-color: #dff5e2;
+  margin-bottom: 1.5em;
+}
+div.sms pre {
+  font-size: 12pt;
+  font-family: monospace;
+}
 @media print {
   /* Print =================================================== */
   * {
