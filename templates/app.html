@@ -42,12 +42,12 @@
 
           <div class="form-row">
             <label for="from">From</label>
-            <input type="text" name="from" value="{{from}}" {% if not from %}autofocus{%endif%} placeholder="Address or Landmark"> 
+            <input type="text" id="from-input" name="from" value="{{from}}" {% if not from %}autofocus{%endif%} placeholder="Address or Landmark"> 
           </div>
         
           <div class="form-row">
             <label for="to">To</label>
-            <input type="text" name="to" value="{{to}}" placeholder="Address or Landmark"> 
+            <input type="text" id="to-input" name="to" value="{{to}}" placeholder="Address or Landmark"> 
           </div>
 
           <div class="form-row-time">
