@@ -16,7 +16,9 @@ function swapFromTo() {
 
 function setFromWithCurrentPosition(pos) {
   // make sure we are not already editing the field
-  if($("#from-input").is(":focus")) {
+  // testing focus isn't quite right - instead just see if there is already 
+  // a value put in there
+  if($("#from-input").val()) {
     return;
   }
   var c = pos.coords;
