@@ -9,6 +9,12 @@
 {%- endmacro %}
 
 
+{% block scripts %}
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="static/js/jquery-1.7.1.min.js"><\/script>')</script>
+  <script src="static/js/app.js"></script>
+{% endblock %}
+
 {% block head %}
   {# TODO: include direction FROM to TO here? #}
   <title>Bike Bus New Orleans
@@ -17,38 +23,6 @@
     {% endif %}
   </title>
   <link rel="stylesheet" href="static/css/app.css">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script>
-    
-    function updateTimeField() {
-      if($('#timemode').val() == 'now') {
-        $('#time').hide();
-      }
-      else {
-        $('#time').show();
-      }
-    }
-
- $(document).ready(function() {
-   if($('.details').length > 1) {
-     $('.details').hide();
-   }
-   $(".leg-header").click(function() {
-     $('.details',this.parentNode).toggle();
-   });
-   $("#edit-link").click(function(event) {
-     $("#prompt").show();
-     $("#result-head").hide();
-     event.preventDefault();
-   })
-   $("#timemode").change(function() {
-      updateTimeField();
-   })
-   updateTimeField()
- });
-
-
-  </script>
 {% endblock %}
 
 {% block content %}
