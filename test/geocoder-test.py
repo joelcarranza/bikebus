@@ -3,12 +3,18 @@ import unittest
 
 class GeocodeTests(unittest.TestCase):
   def test_geocode_latlon(self):
-    code,(lat,lon) =  geocoder.geocode('29.949803,-90.068858')
+    code,(lat,lon,text) =  geocoder.geocode('29.949803,-90.068858')
     self.assertEqual(code,'OK')
     self.assertAlmostEqual(lat,29.949803)
     self.assertAlmostEqual(lon,-90.068858)
 
   def test_geocode_fail(self):
+    code,(lat,lon,text) =  geocoder.geocode('Audubon Park')
+    self.assertEqual(code,'OK')
+    code,(lat,lon,text) =  geocoder.geocode('Superdome')
+    self.assertEqual(code,'OK')
+    code,(lat,lon,text) =  geocoder.geocode('643 Magazine Street')
+    self.assertEqual(code,'OK')
     # not specific
     code,result =  geocoder.geocode('New Orleans, LA')
     self.assertNotEqual(code,'OK')
@@ -19,10 +25,10 @@ class GeocodeTests(unittest.TestCase):
     self.assertIsNone(result)
 
   def test_geocode_pass(self):
-    code,(lat,lon) =  geocoder.geocode('Audubon Park')
+    code,(lat,lon,text) =  geocoder.geocode('Audubon Park')
     self.assertEqual(code,'OK')
-    code,(lat,lon) =  geocoder.geocode('Superdome')
+    code,(lat,lon,text) =  geocoder.geocode('Superdome')
     self.assertEqual(code,'OK')
-    code,(lat,lon) =  geocoder.geocode('643 Magazine Street')
+    code,(lat,lon,text) =  geocoder.geocode('643 Magazine Street')
     self.assertEqual(code,'OK')
 

@@ -40,9 +40,13 @@ def geocode(search):
       location_type = result['geometry']['location_type']
       # require a decent location - exclude matches that just identify the
       # city center - i.e. New Orleans, LA
-      # this doens't work for Superdome or Audobon Park
-      # if location_type == 'APPROXIMATE':
-      #  return 'APPROXIMATE',None
+      if location_type == 'APPROXIMATE':
+        # APPROXIMATE is not enough - fails for Audobon park or superdome
+        # the types fields provides info about what kind of hint we get
+        # new orleans - types=[locality,politcal]
+        # superdome - types=[poi]
+        if any(t in ['locality','political'] for t in result['types']):
+          return 'APPROXIMATE',None
       # make sure we are IN new orleans
       (lat_min,lon_min),(lat_max,lon_max) = BOUNDS
       lat = result['geometry']['location']['lat']
