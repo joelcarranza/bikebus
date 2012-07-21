@@ -23,6 +23,22 @@
     {% endif %}
   </title>
   <link rel="stylesheet" href="static/css/app.css">
+  <script>
+  var currentPosition = null;
+  var currentPositionCallback = null;
+
+  function glsuccess(coord) {
+    currentPosition = coord;
+    if(currentPositionCallback) {
+      currentPositionCallback(currentPosition);
+    }
+  }
+
+  // if new "blank" form try and grab current position
+  if (!window.location.search && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(glsuccess);
+  }
+</script>
 {% endblock %}
 
 {% block content %}

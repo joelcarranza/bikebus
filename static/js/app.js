@@ -14,10 +14,13 @@ function swapFromTo() {
   $("#to-input").val(fromv);
 }
 
-function glsuccess(pos) {
+function setFromWithCurrentPosition(pos) {
+  // make sure we are not already editing the field
+  if($("#from-input").is(":focus")) {
+    return;
+  }
   var c = pos.coords;
   $("#from-input").val(c.latitude.toFixed(4)+", "+c.longitude.toFixed(4));
-
 }
 
 
@@ -42,9 +45,11 @@ $(document).ready(function() {
     updateTimeField();
   });
   updateTimeField();
-
-  // if new "blank" form try and grab current position
-  if (!window.location.search && navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(glsuccess);
+  if(currentPosition) {
+    setFromWithCurrentPosition(currentPosition);
   }
+  else {
+    currentPositionCallback = setFromWithCurrentPosition;
+  }
+
 });
