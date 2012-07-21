@@ -8,6 +8,9 @@
 <option value="{{value}}" {% if var==value %}SELECTED{% endif %}>{{label}}</option>
 {%- endmacro %}
 
+{% macro hideif(var) -%}
+{% if var %} style="display: none;"{%endif%}
+{%- endmacro %}
 
 {% block scripts %}
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -75,7 +78,7 @@
               {{option(timemode,'depart','Leave At')}}
               {{option(timemode,'arrive','Arrive At')}}
             </select>
-            <input id="time" type="time" class="input-large" name="time" value="{{time}}">
+            <input id="time" type="time" class="input-large" name="time" value="{{time}}" {{hideif(timemode=='now')}}>
           </div>
           
           <div class="form-actions">
@@ -135,7 +138,7 @@
           {% endif %}
         </div>
 
-          <div class="details">
+        <div class="details" {{hideif(itinerary.legs|count > 1)}}>
           <ol class="steps">
           {% for step in leg.steps %}
           <li>

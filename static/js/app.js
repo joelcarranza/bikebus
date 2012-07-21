@@ -28,9 +28,6 @@ function setFromWithCurrentPosition(pos) {
 
 
 $(document).ready(function() {
-  if($('.details').length > 1) {
-    $('.details').hide();
-  }
   $(".leg-header").click(function() {
     $('.details',this.parentNode).toggle();
   });
@@ -46,7 +43,6 @@ $(document).ready(function() {
   $("#timemode").change(function() {
     updateTimeField();
   });
-  updateTimeField();
   if(currentPosition) {
     setFromWithCurrentPosition(currentPosition);
   }
